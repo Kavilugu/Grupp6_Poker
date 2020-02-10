@@ -148,7 +148,7 @@ public class Ai {
     }
 
   }
-
+//test
 
   /**
    * Makes sure that AI-players decision from last this isnt making a problem for current turns
