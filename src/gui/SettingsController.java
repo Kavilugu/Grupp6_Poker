@@ -1,7 +1,8 @@
 package gui;
 
 import java.io.IOException;
-import controller.SPController;
+
+import controller.GameLogicController;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
@@ -20,7 +21,7 @@ import javafx.scene.layout.Pane;
  *
  */
 public class SettingsController {
-	private SPController spController;
+	private GameLogicController spController;
 
 	private ChangeScene changeScene;
 	private ConfirmBox confirmBox;
@@ -148,7 +149,7 @@ public class SettingsController {
 		aiSliderChange();
 		if (!tfNameInput.getText().isEmpty()) {
 			name = tfNameInput.getText();
-			spController = new SPController();
+			spController = new GameLogicController();
 			changeScene.setSPController(spController);
 
 			if (cbOn.isSelected()) {

@@ -1,7 +1,7 @@
 package gui;
 
 import java.io.IOException;
-import controller.SPController;
+import controller.GameLogicController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
@@ -21,7 +21,7 @@ public class ChangeScene {
   Pane rootNewGame;
   Pane root2;
   Scene bestScene;
-  private FMController fmController;
+  private UIController fmController;
   private SettingsController settingsController;
   private GameController gameController;
 
@@ -34,7 +34,7 @@ public class ChangeScene {
    */
   public void prepGame() throws IOException, InstantiationException, IllegalAccessException {
     Sound.class.newInstance().playBackgroundMusic();
-    FXMLLoader loaderFM = new FXMLLoader(FMController.class.getResource("/FirstMenu.fxml"));
+    FXMLLoader loaderFM = new FXMLLoader(UIController.class.getResource("/FirstMenu.fxml"));
     this.rootMenu = loaderFM.load();
     this.fmController = loaderFM.getController();
     FXMLLoader loaderSS =
@@ -100,12 +100,12 @@ public class ChangeScene {
   }
 
   /**
-   * Method which sets the SPController (the controller that runs the actual game behind the
+   * Method which sets the GameLogicController (the controller that runs the actual game behind the
    * scenes).
    * 
    * @param spController
    */
-  public void setSPController(SPController spController) {
+  public void setSPController(GameLogicController spController) {
     gameController.setSPController(spController);
   }
 
