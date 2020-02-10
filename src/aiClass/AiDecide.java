@@ -387,7 +387,6 @@ public class AiDecide {
  * @return Returns what the ai-players is going to do this turn.
  */
   public String decision() {
-
     return toDo;
   }
 }

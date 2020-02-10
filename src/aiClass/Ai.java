@@ -49,7 +49,6 @@ public class Ai {
    * @param card2 The second card the ai-player gets.
    */
   public void setStartingHand(Card card1, Card card2) { // set starting hand
-
     aiCards.clear(); // resets the arraylist.
     char A = card1.getCardSuit().charAt(0);
     char B = card2.getCardSuit().charAt(0);
@@ -90,7 +89,6 @@ public class Ai {
    * @param flop The three cards that will be set on the table that all players can use.
    */
   public void makeDecision(int currentBet, Card[] flop) {
-
     if (!sameTurn) {
       for (Card card : flop) {
         char A = card.getCardSuit().charAt(0);
@@ -119,7 +117,8 @@ public class Ai {
    * @param turn Another cards gets added to the table that all the players can use.
    */
   public void makeDecision(int currentBet, Card turn) {
-
+    //dela upp i två metoder?
+    //flopmetod --> turnmetod --> rivermetod?
     if (!sameTurn) {
       char A = turn.getCardSuit().charAt(0);
       aiCards.add(turn.getCardValue() + "," + String.valueOf(A));

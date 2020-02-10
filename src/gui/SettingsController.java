@@ -144,15 +144,12 @@ public class SettingsController {
 	 * @throws IOException
 	 */
 	public void startGame() throws IOException {
-
-
 		potSliderChange();
 		aiSliderChange();
 		if (!tfNameInput.getText().isEmpty()) {
 			name = tfNameInput.getText();
 			spController = new SPController();
 			changeScene.setSPController(spController);
-
 
 			if (cbOn.isSelected()) {
 				System.out.println("Tutorial ska visas");
@@ -214,19 +211,14 @@ public class SettingsController {
 
 			try {
 				changeScene.switchScenetoGame();
-				ConfirmBox cfBox = new ConfirmBox();
-
-				if (cfBox.display("Snart börjar spelet", "Är du redo att spela poker?")) {
-					spController.startGame(aiValue, potValue, name);
-					Sound.mp.stop();
-					sound.playSound("shuffle");
-				} else {
-					changeScene.switchToMainMenu();
-				}
-			} catch (IOException | InstantiationException | IllegalAccessException e) {
-				// TODO Auto-generated catch block
+			} catch (IOException e) {
 				e.printStackTrace();
 			}
+
+			spController.startGame(aiValue, potValue, name);
+			Sound.mp.stop();
+			sound.playSound("shuffle");
+
 		});
 		System.out.println("Spel startas!");
 	}
@@ -245,10 +237,8 @@ public class SettingsController {
 	 * Shows a label if question mark is hovered. 
 	 */
 	public void ivQuestionPotHovered() {
-
 		lblPotInfo.setVisible(true);
 		ivQuestionPot.setOnMouseExited(e -> lblPotInfo.setVisible(false));
-
 	}
 
 	/**

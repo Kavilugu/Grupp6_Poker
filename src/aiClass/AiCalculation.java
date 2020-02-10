@@ -11,7 +11,6 @@ import java.util.Arrays;
  *
  */
 public class AiCalculation {
-
 	private ArrayList<String> aiCards = new ArrayList<String>();
 	private ArrayList<Integer> cardNbr = new ArrayList<Integer>();
 	private ArrayList<String> cardClr = new ArrayList<String>();
@@ -55,10 +54,11 @@ public class AiCalculation {
 		}
 	}
 	
-/**
- * Checks if ai-players has high cards or not.
- * @return returns if the cards have a combined value of 17 or more.
- */
+	/**
+ 	* Checks if ai-players has high cards or not.
+ 	* @return returns if the cards have a combined value of 17 or more.
+ 	*/
+	//totalt värdelös metod
 	public boolean checkHighCards() {
 		boolean high = false;
 
@@ -74,11 +74,12 @@ public class AiCalculation {
 		return high;
 	}
 	
-/**
- * calculates the number of same suits the ai players has.
- * @return returns if the AI has a chance or has a flush
- */
+	/**
+	 * calculates the number of same suits the ai players has.
+	 * @return returns if the AI has a chance or has a flush
+	 */
 	public int checkSuit() {
+		//tydligare namn?
 		int C = 0;
 		int S = 0;
 		int H = 0;
@@ -100,38 +101,33 @@ public class AiCalculation {
 			}
 		}
 
+		//måste gå att snygga till / korta ner
 		if (S > color) {
-
 			color = S;
-
 		}
 
 		if (H > color) {
-
 			color = H;
-
 		}
+
 		if (D > color) {
-
 			color = D;
-
 		}
+
 		if (C > color) {
-
 			color = C;
-
 		}
 
 		return color;
 	}
 
-/**
- * calculates the amount of same cards that the ai-player has to use.
- * @return returns how main pairs or more that the ai has.
- */
+	/**
+	 * calculates the amount of same cards that the ai-player has to use.
+	 * @return returns how main pairs or more that the ai has.
+	 */
+	//wtf?
 	public int checkPairAndMore() {
-		
-		int nbrOftemp = 0;
+		int nbrOftemp = 0; // Kort 1 på hand --> hur många fler finns?
 		int nbrOftemp1 = 0;
 		int nbrOftemp2 = 0;
 		int[] cards = new int[cardNbr.size()];
@@ -139,7 +135,6 @@ public class AiCalculation {
 		for (int i = 0; i < cardNbr.size(); i++) {
 			cards[i] = cardNbr.get(i);
 		}
-
 		if (cards[0] == cards[1]) {
 			int temp = cards[0];
 			nbrOftemp = 2;
@@ -150,7 +145,6 @@ public class AiCalculation {
 				}
 			}
 		}
-
 		else {
 			int temp1 = cards[0];
 			int temp2 = cards[1];
@@ -196,6 +190,7 @@ public class AiCalculation {
 	 * @return returns if the Ai has a chance or has a Straight.
 	 */
 	public int checkStraight() {
+		//cardnbr = array of values
 		if(cardNbr.get(cardNbr.size()-1) == 14){
 			cardNbr.add(1);
 		}
@@ -243,7 +238,7 @@ public class AiCalculation {
 	 * @return returns the ai-players current handStrenght.
 	 */
 	public int calcHandstrenght(){
-		
+		//same??????
 		if(same==2){
 			handStrenght=1;	
 		}

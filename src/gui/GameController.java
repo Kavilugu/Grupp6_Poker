@@ -146,6 +146,8 @@ public class GameController {
   @FXML
   public MenuItem miAbout;
   @FXML
+  public MenuItem miRestart;
+  @FXML
   public MenuItem miTutorial;
 
   @FXML
@@ -195,6 +197,7 @@ public class GameController {
   private TutorialController tutorialWindow;
   private int AllInViability = 0;
   private Label[] collectionOfPots;
+  private int originalPotSize;
 
 
   /**
@@ -240,7 +243,6 @@ public class GameController {
    * @param position Position on the screen (0-4).
    */
   public void setShowUIAiBar(int position) {
-
     collectionOfLabelsAi[position][0].setVisible(true);
     collectionOfLabelsAi[position][1].setVisible(true);
     collectionOfLabelsAi[position][2].setVisible(true);
@@ -255,7 +257,6 @@ public class GameController {
    * @param name The label for the AI's name.
    */
   public void setLabelUIAiBarName(int position, String name) {
-
     collectionOfLabelsAi[position][0].setText(name);
   }
 
@@ -267,7 +268,6 @@ public class GameController {
    * @param pot The label for the AI's pot.
    */
   public void setLabelUIAiBarPot(int position, String pot) {
-
     collectionOfLabelsAi[position][1].setText("§" + pot);
   }
 
@@ -279,7 +279,6 @@ public class GameController {
    * @param action The label for the AI's action.
    */
   public void setLabelUIAiBarAction(int position, String action) {
-
     collectionOfLabelsAi[position][2].setText(action);
   }
 
@@ -292,10 +291,9 @@ public class GameController {
    *        active (currently it's turn).
    */
   public void setUIAiStatus(int position, String state) {
-
     String resource = "resources/images/"; // 122, 158
     Image hideCards = new Image(Paths.get(resource + "aiBarWithoutCards.png").toUri().toString(),
-        122, 158, true, true);
+            122, 158, true, true);
     Image showCards = new Image(Paths.get(resource + "aiBarWithCards.png").toUri().toString(), 122,
         158, true, true);
     Image showActiveCards =
@@ -318,7 +316,6 @@ public class GameController {
    * @param spController an instance of the class SPController
    */
   public void setSPController(SPController spController) {
-
     this.spController = spController;
     spController.setGameController(this);
   }
@@ -976,8 +973,11 @@ public class GameController {
    * @param newValue The value to add/remove from the player-pot.
    */
   public void setPlayerPot(int newValue) {
-
     this.playerPot += newValue;
+  }
+
+  public void setOriginalPotSize(int pot){
+    this.originalPotSize = pot;
   }
 
 
@@ -1216,7 +1216,6 @@ public class GameController {
    * Force closes the program
    */
   public void closeProgram() {
-
     System.exit(0);
   }
 
@@ -1228,13 +1227,20 @@ public class GameController {
    * @throws IllegalAccessException
    */
   public void goToMainMenu() throws InstantiationException, IllegalAccessException {
-
     try {
       changeScene.switchToMainMenu();
       changeScene.prepGame();
     } catch (IOException e) {
       e.printStackTrace();
     }
+  }
+
+  public void restartGame() {
+    System.out.println("Hejsan");
+    spController = new SPController();
+    spController.setGameController(this);
+    this.playerPot = 0;
+    spController.startGame(aiPlayers.size(), originalPotSize, getUsername());
   }
 
 
@@ -1485,7 +1491,6 @@ public class GameController {
    * @param tablePot the main tablePot
    */
   public void updatePots(int[][] potSplits, int tablePot) {
-
     if (spController.getFixedNrOfAIs() == 5) {
       this.collectionOfPots =
           new Label[] {subPotOne, subPotTwo, subPotThree, subPotFour, subPotFive, subPotSix};
