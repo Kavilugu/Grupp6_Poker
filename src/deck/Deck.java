@@ -41,6 +41,15 @@ public class Deck {
     return deck.remove(0);
   }
 
+  /**
+   * Returns the reference of specified card without removing it.
+   * //Andreas
+   * @param index the index of the card
+   * @return
+   */
+  public Card getCard(int index){
+    return deck.get(index);
+  }
 
   /**
    * Returns the current size of the deck
