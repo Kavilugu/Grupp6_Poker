@@ -217,7 +217,7 @@ public class SettingsController {
 			}
 
 			spController.startGame(aiValue, potValue, name);
-			Sound.mp.stop();
+			sound.mp.stop();
 			sound.playSound("shuffle");
 
 		});

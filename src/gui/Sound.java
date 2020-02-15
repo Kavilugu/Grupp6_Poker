@@ -14,7 +14,7 @@ import javafx.scene.media.MediaPlayer;
 public class Sound {
 
 	private static Media m = new Media(Sound.class.getResource("/sounds/cool_struttin'.mp3").toString());
-	public static MediaPlayer mp = new MediaPlayer(m);
+	public MediaPlayer mp = new MediaPlayer(m);
 	public AudioClip checkSound = new AudioClip(Sound.class.getResource("/sounds/checkMeSound.m4a").toString());
 	public AudioClip shuffleSound = new AudioClip(Sound.class.getResource("/sounds/cardShuffle.wav").toString());
 	public AudioClip singleCard = new AudioClip(Sound.class.getResource("/sounds/cardSlide8.wav").toString());

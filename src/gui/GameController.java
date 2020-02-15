@@ -199,6 +199,10 @@ public class GameController {
   private Label[] collectionOfPots;
   private int originalPotSize;
 
+  public GameController() {
+    sound.playBackgroundMusic();
+    sound.mp.setVolume(0.3);
+  }
 
   /**
    * Method for initializing FXML
@@ -529,6 +533,7 @@ public class GameController {
       sound.chipMulti.setVolume(0);
       sound.coinSound.setVolume(0);
       sound.wrongSound.setVolume(0);
+      sound.mp.setMute(true);
     } else if (sound.cardFold.getVolume() == 0) {
       sound.cardFold.setVolume(1);
       sound.checkSound.setVolume(1);
@@ -539,6 +544,8 @@ public class GameController {
       sound.chipMulti.setVolume(1);
       sound.coinSound.setVolume(1);
       sound.wrongSound.setVolume(1);
+      sound.mp.setMute(false);
+
     }
   }
 

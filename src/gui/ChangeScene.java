@@ -33,7 +33,6 @@ public class ChangeScene {
    * @throws IllegalAccessException
    */
   public void prepGame() throws IOException, InstantiationException, IllegalAccessException {
-    Sound.class.newInstance().playBackgroundMusic();
     FXMLLoader loaderFM = new FXMLLoader(UIController.class.getResource("/FirstMenu.fxml"));
     this.rootMenu = loaderFM.load();
     this.fmController = loaderFM.getController();
@@ -72,7 +71,6 @@ public class ChangeScene {
 
     Main.window.getScene().setRoot(root2);
     gameController.setUsername(settingsController.getName());
-    Sound.mp.setVolume(0.3);
 
   }
 
