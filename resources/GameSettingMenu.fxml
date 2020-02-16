@@ -51,7 +51,7 @@
                </cursor></Slider>
             <HBox prefHeight="0.0" prefWidth="440.0">
                <children>
-                  <CheckBox fx:id="cbOn" disable="true" mnemonicParsing="false" onAction="#cbOnClicked" selected="true" text="På" textFill="WHITE">
+                  <CheckBox fx:id="cbOn" disable="false" mnemonicParsing="false" onAction="#cbOnClicked" selected="true" text="På" textFill="WHITE">
                      <font>
                         <Font name="Tw Cen MT" size="24.0" />
                      </font>

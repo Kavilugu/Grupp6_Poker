@@ -121,7 +121,6 @@ public class SettingsController {
 			cbOff.setSelected(false);
 			cbOff.setDisable(false);
 			cbOn.setSelected(true);
-			cbOn.setDisable(true);
 
 		}
 	}
@@ -135,7 +134,6 @@ public class SettingsController {
 			cbOn.setSelected(false);
 			cbOn.setDisable(false);
 			cbOff.setSelected(true);
-			cbOff.setDisable(true);
 
 		}
 	}

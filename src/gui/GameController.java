@@ -306,8 +306,12 @@ public class GameController {
 
     if (state == "inactive") {
       collectionOfCardsAi[position].setImage(hideCards);
+      System.out.println(spController.getAicards(position));
     } else if (state == "idle") {
-      collectionOfCardsAi[position].setImage(showCards);
+      //collectionOfCardsAi[position].setImage(showCards);
+      Image cards = new Image(Paths.get(resource + "aiBarWithCardsCurrentPlayer.png").toUri().toString(), 122,
+              158, true, true);
+      System.out.println(spController.getAicards(position));
     } else if (state == "active") {
       collectionOfCardsAi[position].setImage(showActiveCards);
     }
@@ -1257,7 +1261,6 @@ public class GameController {
   }
 
   public void restartGame() {
-    System.out.println("Hejsan");
     spController = new GameLogicController();
     spController.setGameController(this);
     this.playerPot = 0;
