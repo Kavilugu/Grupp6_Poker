@@ -14,7 +14,7 @@ import javafx.scene.image.ImageView;
  *
  */
 
-public class FMController {
+public class UIController {
 
 	private ChangeScene changeScene;
 	private Sound sound;
@@ -35,7 +35,7 @@ public class FMController {
 	}
 
 	/**
-	 * Sets the changeScene for this FMController
+	 * Sets the changeScene for this UIController
 	 * 
 	 * @param sceneChanger an instance of the class ChangeScene
 	 */

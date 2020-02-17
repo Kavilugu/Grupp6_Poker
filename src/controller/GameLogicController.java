@@ -16,8 +16,7 @@ import gui.GameController;
  * @version 1.0
  *
  */
-public class SPController extends Thread {
-
+public class GameLogicController extends Thread {
   private Deck deck;
   private LinkedList<Ai> aiPlayers = new LinkedList<Ai>();
   private int noOfAi;
@@ -56,7 +55,7 @@ public class SPController extends Thread {
    * @param playerName The players' name.
    */
   public void startGame(int noOfAi, int potSize, String playerName) {
-
+    gController.setOriginalPotSize(potSize);
     this.fixedNrOfAIs = noOfAi;
     gController.disableButtons();
     this.potSize = potSize;
@@ -92,9 +91,7 @@ public class SPController extends Thread {
    * @param gController An instance of GameController
    */
   public void setGameController(GameController gController) {
-
     this.gController = gController;
-
   }
 
 
@@ -104,7 +101,6 @@ public class SPController extends Thread {
    * @return currentMaxbet the current max bet
    */
   public int getCurrentMaxBet() {
-
     return currentMaxBet;
   }
 
@@ -115,7 +111,6 @@ public class SPController extends Thread {
    * @return potSize The pot.
    */
   public int getPotSize() {
-
     return potSize;
   }
 
@@ -124,7 +119,6 @@ public class SPController extends Thread {
    * Method that creates a list of names for AI-Players to pull from
    */
   public void setNames() {
-
     name.add("Max");
     name.add("Vedrana");
     name.add("Lykke");
@@ -143,7 +137,6 @@ public class SPController extends Thread {
    * @throws InstantiationException
    */
   private void setupPhase() throws InstantiationException, IllegalAccessException {
-
     // Check if the player lost last turn
     if (gController.getPlayerPot() > bigBlind) {
       /*
@@ -165,7 +158,6 @@ public class SPController extends Thread {
        * Reset the AI players unless they've lost
        */
       for (Ai ai : aiPlayers) {
-        System.out.println(ai.getName() + " : " + ai.getDecision() + (ai.aiPot() < bigBlind));
         ai.setBigBlind(0, false);
         ai.setSmallBlind(0, false);
         ai.setPaidThisTurn(0);
@@ -203,7 +195,6 @@ public class SPController extends Thread {
    * Method that runs the gameround itself
    */
   public void run() {
-
     gController.hideAllIn();
     gController.activeSlider();
     String winner = "";
@@ -244,8 +235,7 @@ public class SPController extends Thread {
       while (!allCalledorFolded) {
         // Check if its the players turn.
         if (currentPlayer == noOfPlayers - 1) {
-          if (!gController.getPlayerDecision().equals("fold")
-              && !gController.getPlayerDecision().contains("allin")) {
+          if (!gController.getPlayerDecision().equals("fold") && !gController.getPlayerDecision().contains("allin")) {
             if (!(checkLivePlayers() > 1)) {
               gController.setPlayerPot(currentPotSize);
               winner = gController.getUsername();
@@ -263,8 +253,7 @@ public class SPController extends Thread {
           // if it isn't the players turn, let the AI do their turn
         } else {
           if (!aiPlayers.get(currentPlayer).getDecision().contains("lost")) {
-            if (!aiPlayers.get(currentPlayer).getDecision().contains("fold")
-                && !aiPlayers.get(currentPlayer).getDecision().contains("all-in")) {
+            if (!aiPlayers.get(currentPlayer).getDecision().contains("fold") && !aiPlayers.get(currentPlayer).getDecision().contains("all-in")) {
               if (!(checkLivePlayers() > 1)) {
                 aiPlayers.get(currentPlayer).updateWinner(currentPotSize);
                 winner = aiPlayers.get(currentPlayer).getName();
@@ -322,7 +311,6 @@ public class SPController extends Thread {
         ai.updateWinner(-ai.aiPot());
         gController.setUIAiStatus(aiPlayers.indexOf(ai), "inactive");
       }
-      System.out.println(ai.getName() + " : " + ai.getDecision() + (ai.aiPot() < bigBlind));
 
     }
 
@@ -372,7 +360,7 @@ public class SPController extends Thread {
        * player is now the bestHandPlayer
        */
       for (Ai ai : aiPlayers) {
-        if (!ai.getDecision().equals("fold")) {
+        if (!ai.getDecision().equals("fold") && !ai.getDecision().contains("lost")) {
           if (ai.handStrength() > bestHand) {
             bestHandPlayer = ai;
             bestHand = ai.handStrength();
@@ -459,7 +447,6 @@ public class SPController extends Thread {
    * Method which checks the winners if there was one or more all-ins
    */
   private void checkAllInWinners() {
-
     /*
      * This method does the same thing as checkWinners except the pot is split over multiple subpots
      * and one winner is declared for each subpot
@@ -784,6 +771,11 @@ public class SPController extends Thread {
     }
   }
 
+  public ArrayList<String> getAicards(int position) {
+    return aiPlayers.get(position).getAiCards();
+
+  }
+
 
   /**
    * Method which sets who the small and big blind players are. Depending on who the dealer is.
@@ -791,8 +783,6 @@ public class SPController extends Thread {
    * @param noOfPlayers Number of players in the game
    */
   private void setBlinds(int noOfPlayers) {
-
-
     currentMaxBet = bigBlind;
     smallBlind = bigBlind / 2;
     // In heads-up play

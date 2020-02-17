@@ -27,6 +27,7 @@ public class TutorialController {
 	private Pane tutorialPane;
 	@FXML
 	private ImageView btnNext;
+	private ImageView btnBack;
 
 	public int tutorialProgress;
 	public SettingsController settingsController;
@@ -74,8 +75,8 @@ public class TutorialController {
 		window.setScene(scene);
 		window.show();
 
-		this.tutorialProgress = 0;
-		placeImg();
+		this.tutorialProgress = 1;
+		placeImg(0);
 
 	}
 	/**
@@ -94,15 +95,15 @@ public class TutorialController {
 	window.setScene(scene);
 	window.show();
 
-	this.tutorialProgress = 0;
-	placeImg();
+	this.tutorialProgress = 1;
+	placeImg(0);
 	}
 	
 	/**
 	 * Activates correct listener based on tutorialProgress. There are 17 steps, the last step launches the game.
 	 */
-	public void placeImg(){
-		this.tutorialProgress = tutorialProgress+1;
+	public void placeImg(int progress){
+		this.tutorialProgress = tutorialProgress+progress;
 		System.out.println(tutorialProgress);
 		String buttonName = "nästaButton";
 		if(tutorialProgress == 17){
@@ -119,11 +120,21 @@ public class TutorialController {
 		btnNext.setY(570.5);
 		tutorialPane.getChildren().add(btnNext);
 
+		if(tutorialProgress != 1) {
+			image = new Image(Paths.get("resources/images/" + "backButton" + ".png").toUri().toString(), 100, 60, true, true);
+			btnBack = new ImageView(image);
+			btnBack.setX(1035);
+			btnBack.setY(590.5);
+			tutorialPane.getChildren().add(btnBack);
+			addButtonListenerBack();
+		}
+
 
 		if(tutorialProgress == 17){
 			addButtonListenerPlay();
 		}else{
 			addButtonListenerNext();
+
 		}
 	}
 
@@ -133,7 +144,16 @@ public class TutorialController {
 	public void addButtonListenerNext(){
 		btnNext.setOnMouseReleased(new EventHandler<MouseEvent>() {
 			@Override public void handle(MouseEvent event) {
-				placeImg();
+				placeImg(1);
+			}
+		});
+	}
+
+	public void addButtonListenerBack(){
+		btnBack.setOnMouseReleased(new EventHandler<MouseEvent>() {
+
+			@Override public void handle(MouseEvent event) {
+				placeImg(-1);
 			}
 		});
 	}

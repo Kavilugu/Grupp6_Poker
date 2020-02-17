@@ -5,7 +5,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import aiClass.Ai;
-import controller.SPController;
+import controller.GameLogicController;
 import deck.Card;
 import hand.Hand;
 import javafx.application.Platform;
@@ -146,6 +146,8 @@ public class GameController {
   @FXML
   public MenuItem miAbout;
   @FXML
+  public MenuItem miRestart;
+  @FXML
   public MenuItem miTutorial;
 
   @FXML
@@ -176,7 +178,7 @@ public class GameController {
   private int playerPot = 0;
   private int alreadyPaid = 0;
   private ImageView imgPowerBar = new ImageView();
-  private SPController spController;
+  private GameLogicController spController;
   private boolean playerMadeDecision = false;
   private boolean isReady = false;
   private String decision;
@@ -195,7 +197,12 @@ public class GameController {
   private TutorialController tutorialWindow;
   private int AllInViability = 0;
   private Label[] collectionOfPots;
+  private int originalPotSize;
 
+  public GameController() {
+    sound.playBackgroundMusic();
+    sound.mp.setVolume(0.3);
+  }
 
   /**
    * Method for initializing FXML
@@ -240,7 +247,6 @@ public class GameController {
    * @param position Position on the screen (0-4).
    */
   public void setShowUIAiBar(int position) {
-
     collectionOfLabelsAi[position][0].setVisible(true);
     collectionOfLabelsAi[position][1].setVisible(true);
     collectionOfLabelsAi[position][2].setVisible(true);
@@ -255,7 +261,6 @@ public class GameController {
    * @param name The label for the AI's name.
    */
   public void setLabelUIAiBarName(int position, String name) {
-
     collectionOfLabelsAi[position][0].setText(name);
   }
 
@@ -267,7 +272,6 @@ public class GameController {
    * @param pot The label for the AI's pot.
    */
   public void setLabelUIAiBarPot(int position, String pot) {
-
     collectionOfLabelsAi[position][1].setText("§" + pot);
   }
 
@@ -279,7 +283,6 @@ public class GameController {
    * @param action The label for the AI's action.
    */
   public void setLabelUIAiBarAction(int position, String action) {
-
     collectionOfLabelsAi[position][2].setText(action);
   }
 
@@ -292,10 +295,9 @@ public class GameController {
    *        active (currently it's turn).
    */
   public void setUIAiStatus(int position, String state) {
-
     String resource = "resources/images/"; // 122, 158
     Image hideCards = new Image(Paths.get(resource + "aiBarWithoutCards.png").toUri().toString(),
-        122, 158, true, true);
+            122, 158, true, true);
     Image showCards = new Image(Paths.get(resource + "aiBarWithCards.png").toUri().toString(), 122,
         158, true, true);
     Image showActiveCards =
@@ -304,6 +306,7 @@ public class GameController {
 
     if (state == "inactive") {
       collectionOfCardsAi[position].setImage(hideCards);
+      System.out.println(spController.getAicards(position));
     } else if (state == "idle") {
       collectionOfCardsAi[position].setImage(showCards);
     } else if (state == "active") {
@@ -313,12 +316,11 @@ public class GameController {
 
 
   /**
-   * Sets the SPController for this gameController
+   * Sets the GameLogicController for this gameController
    * 
-   * @param spController an instance of the class SPController
+   * @param spController an instance of the class GameLogicController
    */
-  public void setSPController(SPController spController) {
-
+  public void setSPController(GameLogicController spController) {
     this.spController = spController;
     spController.setGameController(this);
   }
@@ -532,6 +534,10 @@ public class GameController {
       sound.chipMulti.setVolume(0);
       sound.coinSound.setVolume(0);
       sound.wrongSound.setVolume(0);
+      sound.mp.setMute(true);
+      Image image = new Image(Paths.get("resources/images/soundButtonOff.png").toUri().toString());
+      ivSound.setImage(image);
+
     } else if (sound.cardFold.getVolume() == 0) {
       sound.cardFold.setVolume(1);
       sound.checkSound.setVolume(1);
@@ -542,6 +548,10 @@ public class GameController {
       sound.chipMulti.setVolume(1);
       sound.coinSound.setVolume(1);
       sound.wrongSound.setVolume(1);
+      sound.mp.setMute(false);
+      Image image = new Image(Paths.get("resources/images/soundButton.png").toUri().toString());
+      ivSound.setImage(image);
+
     }
   }
 
@@ -785,6 +795,7 @@ public class GameController {
         collectionOfCardsTable[i].setY(0);
       }
     });
+
     handHelp();
     checkHand();
   }
@@ -883,6 +894,7 @@ public class GameController {
       adviceLabel.setText("Råd: \n" + adviceText);
 
       powerBarValue = hand.toPowerBar();
+      
 
       if (powerBarValue == 1) {
         powerBarArea.getChildren().remove(imgPowerBar);
@@ -943,16 +955,19 @@ public class GameController {
    * @return The players decision
    */
   public String askForPlayerDecision() {
-
     handleButtons();
     playerMadeDecision = false;
+
     while (!playerMadeDecision) {
+
       try {
-        SPController.sleep(100);
+        GameLogicController.sleep(100);
       } catch (InterruptedException e) {
         e.printStackTrace();
       }
+
     }
+
     return decision;
   }
 
@@ -976,8 +991,11 @@ public class GameController {
    * @param newValue The value to add/remove from the player-pot.
    */
   public void setPlayerPot(int newValue) {
-
     this.playerPot += newValue;
+  }
+
+  public void setOriginalPotSize(int pot){
+    this.originalPotSize = pot;
   }
 
 
@@ -992,14 +1010,18 @@ public class GameController {
       btCall.setVisible(false);
       btRaise.setVisible(true);
       btFold.setVisible(true);
+
     } else {
+
       if (alreadyPaid < spController.getCurrentMaxBet()
           && (playerPot + alreadyPaid) >= spController.getCurrentMaxBet()) {
+
         // hide check, show call
         btCheck.setVisible(false);
         btCall.setVisible(true);
         btFold.setVisible(true);
       } else {
+
         // hide call, hide check
         btCheck.setVisible(false);
         btCall.setVisible(false);
@@ -1216,7 +1238,6 @@ public class GameController {
    * Force closes the program
    */
   public void closeProgram() {
-
     System.exit(0);
   }
 
@@ -1228,13 +1249,20 @@ public class GameController {
    * @throws IllegalAccessException
    */
   public void goToMainMenu() throws InstantiationException, IllegalAccessException {
-
     try {
       changeScene.switchToMainMenu();
       changeScene.prepGame();
+      sound.mp.stop();
     } catch (IOException e) {
       e.printStackTrace();
     }
+  }
+
+  public void restartGame() {
+    spController = new GameLogicController();
+    spController.setGameController(this);
+    this.playerPot = 0;
+    spController.startGame(aiPlayers.size(), originalPotSize, getUsername());
   }
 
 
@@ -1485,7 +1513,6 @@ public class GameController {
    * @param tablePot the main tablePot
    */
   public void updatePots(int[][] potSplits, int tablePot) {
-
     if (spController.getFixedNrOfAIs() == 5) {
       this.collectionOfPots =
           new Label[] {subPotOne, subPotTwo, subPotThree, subPotFour, subPotFive, subPotSix};

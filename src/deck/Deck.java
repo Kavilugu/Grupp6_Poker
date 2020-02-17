@@ -15,7 +15,6 @@ public class Deck {
   private ArrayList<Card> deck = new ArrayList<Card>();
   private ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
 
-
   /**
    * Creates a deck of cards
    */

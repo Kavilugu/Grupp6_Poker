@@ -111,7 +111,6 @@ public class AiDecide {
     if (likelyhood < 35 && roll <= 15 && !(check)) { // BLUFF
       if (aiPot > toBet) {
         toDo = "call," + toBet;
-        System.out.println("BLUFF!!!");
         howMuchToTakeAwayFromAiPot = toBet;
       }
     } else if (likelyhood <= 100 && check) {
@@ -186,7 +185,6 @@ public class AiDecide {
     if (likelyhood < 35 && roll <= 15 && !(check)) { // BLUFF
       if (aiPot > toBet) {
         toDo = "call," + toBet;
-        System.out.println("BLUFF!!!");
         howMuchToTakeAwayFromAiPot = toBet;
       }
     } else if (likelyhood <= 100 && check) {
@@ -261,7 +259,6 @@ public class AiDecide {
     if (likelyhood < 35 && roll <= 15 && !(check)) { // BLUFF
       if (aiPot > toBet) {
         toDo = "call," + toBet;
-        System.out.println("BLUFF!!!");
         howMuchToTakeAwayFromAiPot = toBet;
       }
     } else if (likelyhood <= 100 && check) {
@@ -329,7 +326,6 @@ public class AiDecide {
     if (likelyhood < 35 && roll <= 15 && !(check)) { // BLUFF
       if (aiPot > toBet) {
         toDo = "call," + toBet;
-        System.out.println("BLUFF!!!");
         howMuchToTakeAwayFromAiPot = toBet;
       }
     } else if (likelyhood <= 100 && check) {
@@ -387,7 +383,6 @@ public class AiDecide {
  * @return Returns what the ai-players is going to do this turn.
  */
   public String decision() {
-
     return toDo;
   }
 }

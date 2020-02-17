@@ -84,7 +84,8 @@
 					<menus>
 						<Menu mnemonicParsing="false" text="Meny">
 							<items>
-								<MenuItem fx:id="miNewGame" mnemonicParsing="false" onAction="#goToMainMenu" text="Huvudmeny" />
+								<MenuItem fx:id="miNewGame" mnemonicParsing="false" onAction="#goToMainMenu" text="Starta ny runda" />
+								<MenuItem fx:id="miRestart" mnemonicParsing="false" onAction="#restartGame" text="Starta om runda" />
 								<MenuItem fx:id="miClose" mnemonicParsing="false" onAction="#closeProgram" text="Stäng" />
 							</items>
 						</Menu>
