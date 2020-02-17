@@ -40,6 +40,14 @@ public class Deck {
     return deck.remove(0);
   }
 
+  /**
+   * Returns the reference of the specified card.
+   * @param index
+   * @return
+   */
+  public Card getCard(int index) {
+    return deck.get(index);
+  }
 
   /**
    * Returns the current size of the deck
