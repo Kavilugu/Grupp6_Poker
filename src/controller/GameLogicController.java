@@ -70,7 +70,6 @@ public class GameLogicController extends Thread {
     this.smallBlind = bigBlind / 2;
     gController.setPlayerPot((potSize / noOfPlayers));
     // create aiPlayers
-    System.out.print("Antal AI = " + noOfAi);
     for (int i = 0; i < noOfAi; i++) {
       aiPlayers.add(new Ai(potSize / (noOfPlayers), name.remove(0)));
     }
@@ -159,7 +158,6 @@ public class GameLogicController extends Thread {
        * Reset the AI players unless they've lost
        */
       for (Ai ai : aiPlayers) {
-        System.out.println(ai.getName() + ", decision = " + ai.getDecision() + ", if pot < bigBlind " + (ai.aiPot() < bigBlind));
         ai.setBigBlind(0, false);
         ai.setSmallBlind(0, false);
         ai.setPaidThisTurn(0);
@@ -313,7 +311,6 @@ public class GameLogicController extends Thread {
         ai.updateWinner(-ai.aiPot());
         gController.setUIAiStatus(aiPlayers.indexOf(ai), "inactive");
       }
-      System.out.println(ai.getName() + " : " + ai.getDecision() + (ai.aiPot() < bigBlind));
 
     }
 
@@ -772,6 +769,11 @@ public class GameLogicController extends Thread {
       }
       gController.aiAction(currentPlayer, aiDecision);
     }
+  }
+
+  public ArrayList<String> getAicards(int position) {
+    return aiPlayers.get(position).getAiCards();
+
   }
 
 

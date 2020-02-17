@@ -42,16 +42,17 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Slider>
-            <Slider fx:id="potSlider" blockIncrement="0.0" majorTickUnit="800.0" max="10000.0" min="200.0" minorTickCount="0" onDragDetected="#potSliderChange" showTickLabels="true" value="1000.0">
-               <tooltip>
-                  <Tooltip text="Kolla" />
-               </tooltip>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor></Slider>
+            <TextField fx:id="tfPotsize" prefHeight="98.0" prefWidth="472.0" promptText="Ange pottstorlek">
+               <VBox.margin>
+                  <Insets bottom="40.0" />
+               </VBox.margin>
+               <font>
+                  <Font name="Tw Cen MT" size="25.0" />
+               </font>
+            </TextField>
             <HBox prefHeight="0.0" prefWidth="440.0">
                <children>
-                  <CheckBox fx:id="cbOn" disable="true" mnemonicParsing="false" onAction="#cbOnClicked" selected="true" text="På" textFill="WHITE">
+                  <CheckBox fx:id="cbOn" disable="false" mnemonicParsing="false" onAction="#cbOnClicked" selected="true" text="På" textFill="WHITE">
                      <font>
                         <Font name="Tw Cen MT" size="24.0" />
                      </font>

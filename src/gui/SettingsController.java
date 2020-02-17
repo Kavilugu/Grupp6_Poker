@@ -6,10 +6,8 @@ import controller.GameLogicController;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.Slider;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.event.ActionEvent;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 
@@ -31,6 +29,8 @@ public class SettingsController {
 
 	@FXML
 	private TextField tfNameInput;
+	@FXML
+	private TextField tfPotsize;
 	@FXML
 	private Slider aiSlider;
 	@FXML
@@ -71,8 +71,6 @@ public class SettingsController {
 	 * @throws Exception
 	 */
 	public void initialize() throws Exception {
-		potSlider.setSnapToTicks(true);
-		potSlider.setValue(5000);
 		aiSlider.setSnapToTicks(true);
 
 	}
@@ -82,6 +80,26 @@ public class SettingsController {
 	 */
 	public void tfNameInputChange() {
 		this.name = tfNameInput.getText();
+	}
+
+	/**
+	 * Stores the value from the TextInput that the user has chosen.
+	 * Shows an alert if the input is invalid
+	 *
+	 * @return true if the input is valid
+	 */
+	public boolean potInputChange() {
+		try {
+			potValue = Integer.parseInt(tfPotsize.getText());
+			return true;
+
+		} catch(Exception e) {
+			Alert alert = new Alert(Alert.AlertType.WARNING, "Fel med pottstorlek", ButtonType.OK);
+			alert.showAndWait();
+			return false;
+
+		}
+
 	}
 
 	/**
@@ -103,16 +121,6 @@ public class SettingsController {
 	}
 
 	/**
-	 * Stores the value from the Slider that the user has chosen. 
-	 */
-	public void potSliderChange() {
-
-		Double val = potSlider.getValue();
-		potValue = val.intValue();
-
-	}
-
-	/**
 	 * If ComboBox is selected by the user, disable the button true. 
 	 */
 	public void cbOnClicked() {
@@ -121,7 +129,6 @@ public class SettingsController {
 			cbOff.setSelected(false);
 			cbOff.setDisable(false);
 			cbOn.setSelected(true);
-			cbOn.setDisable(true);
 
 		}
 	}
@@ -135,7 +142,6 @@ public class SettingsController {
 			cbOn.setSelected(false);
 			cbOn.setDisable(false);
 			cbOff.setSelected(true);
-			cbOff.setDisable(true);
 
 		}
 	}
@@ -145,7 +151,12 @@ public class SettingsController {
 	 * @throws IOException
 	 */
 	public void startGame() throws IOException {
-		potSliderChange();
+
+		if(!potInputChange()) {
+			return;
+
+		}
+
 		aiSliderChange();
 		if (!tfNameInput.getText().isEmpty()) {
 			name = tfNameInput.getText();
@@ -172,8 +183,7 @@ public class SettingsController {
 		} else if (tfNameInput.getText().isEmpty()) {
 			sound.playSound("wrong");
 			confirmBox = new ConfirmBox();
-			boolean result =
-					confirmBox.display("Varning", "Du måste välja ett användarnamn för att starta spelet");
+			boolean result = confirmBox.display("Varning", "Du måste välja ett användarnamn för att starta spelet");
 			System.out.println("Du måste välja ett användarnamn");
 			System.out.println(result);
 

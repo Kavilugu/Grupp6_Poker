@@ -306,6 +306,7 @@ public class GameController {
 
     if (state == "inactive") {
       collectionOfCardsAi[position].setImage(hideCards);
+      System.out.println(spController.getAicards(position));
     } else if (state == "idle") {
       collectionOfCardsAi[position].setImage(showCards);
     } else if (state == "active") {
@@ -534,6 +535,9 @@ public class GameController {
       sound.coinSound.setVolume(0);
       sound.wrongSound.setVolume(0);
       sound.mp.setMute(true);
+      Image image = new Image(Paths.get("resources/images/soundButtonOff.png").toUri().toString());
+      ivSound.setImage(image);
+
     } else if (sound.cardFold.getVolume() == 0) {
       sound.cardFold.setVolume(1);
       sound.checkSound.setVolume(1);
@@ -545,6 +549,8 @@ public class GameController {
       sound.coinSound.setVolume(1);
       sound.wrongSound.setVolume(1);
       sound.mp.setMute(false);
+      Image image = new Image(Paths.get("resources/images/soundButton.png").toUri().toString());
+      ivSound.setImage(image);
 
     }
   }
@@ -1246,13 +1252,13 @@ public class GameController {
     try {
       changeScene.switchToMainMenu();
       changeScene.prepGame();
+      sound.mp.stop();
     } catch (IOException e) {
       e.printStackTrace();
     }
   }
 
   public void restartGame() {
-    System.out.println("Hejsan");
     spController = new GameLogicController();
     spController.setGameController(this);
     this.playerPot = 0;

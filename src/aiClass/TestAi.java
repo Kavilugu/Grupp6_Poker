@@ -82,11 +82,8 @@ public class TestAi {
 
     ai.setStartingHand(card1, card2);
 //    ai.makeDecision(150);
-//    System.out.println(ai.getDecision());
 
-    System.out.println("\n\n-Test FLOP-");
     ai.makeDecision(32, flop);
-    System.out.println(ai.getDecision());
 //
 //    System.out.println("\n\n-Test TURN-");
 //    ai.makeDecision(32, cardTurn);

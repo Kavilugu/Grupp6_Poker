@@ -21,6 +21,7 @@ public class Ai {
   private int paidThisTurn = 0;
   private String name;
   private String whatToDo = "";
+
   private ArrayList<String> aiCards = new ArrayList<String>(); // Lista som lägger till alla kort
                                                                // som kommer in och som skickas till
                                                                // turns.
@@ -72,13 +73,10 @@ public class Ai {
 
     aiDecide = new AiDecide(aiCards, aiPot, currentBet, paidThisTurn, sameTurn);
     whatToDo = aiDecide.decision();
-    System.out.println("PaidBeforeThisTurn: " + this.paidThisTurn);
     this.paidThisTurn += aiPot - aiDecide.updateAiPot();
     handStrength = aiDecide.gethandStrength();
     aiPot = aiDecide.updateAiPot();
-    System.out.println("PaidThisTurn(including what was paid before): " + this.paidThisTurn);
-    System.out.println("Decision: " + whatToDo);
-    System.out.println("AiPot after round: " + aiPot);
+
   }
 
 
@@ -98,13 +96,10 @@ public class Ai {
 
     aiDecide = new AiDecide(aiCards, aiPot, currentBet, paidThisTurn, sameTurn);
     whatToDo = aiDecide.decision();
-    System.out.println("PaidBeforeThisTurn: " + this.paidThisTurn);
     this.paidThisTurn += aiPot - aiDecide.updateAiPot();
     aiPot = aiDecide.updateAiPot();
     handStrength = aiDecide.gethandStrength();
-    System.out.println("PaidThisTurn(including what was paid before): " + this.paidThisTurn);
-    System.out.println("Decision: " + whatToDo);
-    System.out.println("AiPot after round: " + aiPot);
+
   }
 
 
@@ -127,26 +122,24 @@ public class Ai {
     if (aiCards.size() < 7) {
       aiDecide = new AiDecide(aiCards, aiPot, currentBet, paidThisTurn, sameTurn);
       whatToDo = aiDecide.decision();
-      System.out.println("PaidBeforeThisTurn: " + this.paidThisTurn);
       this.paidThisTurn += aiPot - aiDecide.updateAiPot();
       aiPot = aiDecide.updateAiPot();
       handStrength = aiDecide.gethandStrength();
-      System.out.println("PaidThisTurn(including what was paid before): " + this.paidThisTurn);
-      System.out.println("Decision: " + whatToDo);
-      System.out.println("AiPot after round: " + aiPot);
+
       // IF its the last turn this is called.
     } else if (aiCards.size() == 7) {
       aiDecide = new AiDecide(aiCards, aiPot, currentBet, paidThisTurn, sameTurn);
       whatToDo = aiDecide.decision();
-      System.out.println("PaidBeforeThisTurn: " + this.paidThisTurn);
       this.paidThisTurn += aiPot - aiDecide.updateAiPot();
       aiPot = aiDecide.updateAiPot();
       handStrength = aiDecide.gethandStrength();
-      System.out.println("PaidThisTurn(including what was paid before): " + this.paidThisTurn);
-      System.out.println("Decision: " + whatToDo);
-      System.out.println("AiPot after round: " + aiPot);
+
     }
 
+  }
+
+  public ArrayList<String> getAiCards() {
+    return aiCards;
   }
 //test
 
@@ -217,7 +210,6 @@ public class Ai {
 
     this.isBigBlind = b;
     if (bigBlind > 0) {
-      System.out.println("AI " + name + " paid the big Blind (" + bigBlind + ")");
     }
 
     aiPot -= bigBlind;
@@ -235,7 +227,6 @@ public class Ai {
 
     this.isSmallBlind = b;
     if (smallBlind > 0) {
-      System.out.println("AI " + name + " paid the small Blind (" + smallBlind + ")");
     }
 
     aiPot -= smallBlind;
@@ -340,8 +331,6 @@ public class Ai {
 
     if (allInViability < AllInViability) {
       AllInViability = allInViability;
-    } else {
-      System.out.println("AI was already viable");
     }
   }
 
