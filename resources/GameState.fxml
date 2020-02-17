@@ -184,6 +184,38 @@
 						<Image preserveRatio="true" smooth="true" url="@/images/aiBarWithCards.png" />
 					</image>
 				</ImageView>
+
+				<ImageView id="aiCardsAfterFold" fx:id="firstAiCardsAfterFoldOne" fitHeight="100.0" fitWidth="77.0" layoutX="170.0" layoutY="290.0" visible="false">
+
+				</ImageView>
+				<ImageView id="aiCardsAfterFold" fx:id="firstAiCardsAfterFoldTwo"  fitHeight="100.0" fitWidth="77.0" layoutX="170.0" layoutY="290.0" visible="false">
+
+				</ImageView>
+				<ImageView id="aiCardsAfterFold" fx:id="secondAiCardsAfterFoldOne" fitHeight="100.0" fitWidth="77.0" layoutX="258.0" layoutY="43.0" visible="false">
+
+				</ImageView>
+				<ImageView id="aiCardsAfterFold" fx:id="secondAiCardsAfterFoldTwo"  fitHeight="100.0" fitWidth="77.0" layoutX="258.0" layoutY="43.0" visible="false">
+
+				</ImageView>
+				<ImageView id="aiCardsAfterFold" fx:id="thirdAiCardsAfterFoldOne" fitHeight="100.0" fitWidth="77.0" layoutX="628.0" layoutY="34.0" visible="false">
+
+				</ImageView>
+				<ImageView id="aiCardsAfterFold" fx:id="thirdAiCardsAfterFoldTwo"  fitHeight="100.0" fitWidth="77.0" layoutX="628.0" layoutY="34.0" visible="false">
+
+				</ImageView>
+				<ImageView id="aiCardsAfterFold" fx:id="fourthAiCardsAfterFoldOne" fitHeight="100.0" fitWidth="77.0" layoutX="980.0" layoutY="43.0" visible="false">
+
+				</ImageView>
+				<ImageView id="aiCardsAfterFold" fx:id="fourthAiCardsAfterFoldTwo"  fitHeight="100.0" fitWidth="77.0" layoutX="980.0" layoutY="43.0" visible="false">
+
+				</ImageView>
+				<ImageView id="aiCardsAfterFold" fx:id="fifthAiCardsAfterFoldOne" fitHeight="100.0" fitWidth="77.0" layoutX="1095.0" layoutY="290.0" visible="false">
+
+				</ImageView>
+				<ImageView id="aiCardsAfterFold" fx:id="fifthAiCardsAfterFoldTwo"  fitHeight="100.0" fitWidth="77.0" layoutX="1095.0" layoutY="290.0" visible="false">
+
+				</ImageView>
+
 				<Pane id="paneRounds.png" fx:id="paneRounds" layoutX="10.0" layoutY="33.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="56.0" prefWidth="108.0">
 					<opaqueInsets>
 					<Insets />
