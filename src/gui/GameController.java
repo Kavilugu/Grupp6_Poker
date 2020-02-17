@@ -1252,6 +1252,7 @@ public class GameController {
     try {
       changeScene.switchToMainMenu();
       changeScene.prepGame();
+      sound.mp.stop();
     } catch (IOException e) {
       e.printStackTrace();
     }
