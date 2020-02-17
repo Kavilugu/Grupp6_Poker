@@ -22,16 +22,33 @@ public class TestAi {
     private int aiPot;
     private ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
 
-    public Card getSpecifiedCard(int index) {
+	/**
+	 * Method which returns a specified card from the deck.
+	 * @param index the index of the specified card in the deck.
+	 * @return
+	 */
+	public Card getSpecifiedCard(int index) {
         return this.deck.getCard(index);
     }
 
-    public void setAi(int aiPot, String aiName){
+	/**
+	 * Method which instantiates an AI-player and sets its name and starting pot.
+	 * @param aiPot the starting pot for the AI-player
+	 * @param aiName the name for the AI-player
+	 */
+	public void setAi(int aiPot, String aiName){
 		this.aiName = aiName;
 		this.aiPot = aiPot;
 		ai = new Ai(this.aiPot, this.aiName);
 	}
 
+	/**
+	 * Function which tests the AI-players decision making capabilities with a given starting hand and the current bet.
+	 * The AI-players decision is printed in the console.
+	 * @param card1Index the index of the first card in the deck.
+	 * @param card2Index the index of the second card in the deck.
+ 	 * @param currentBet the current bet.
+	 */
 	public void testAiStartingHand(int card1Index, int card2Index, int currentBet){
 		card1 = getSpecifiedCard(card1Index);
 		card2 = getSpecifiedCard(card2Index);
@@ -44,6 +61,12 @@ public class TestAi {
 		System.out.println(ai.getDecision());
 	}
 
+	/**
+	 * Function which generates the flop for the round and calls the AI-player to make a decision based on it.
+	 * The decision is then printed in the console.
+	 * @param flopIndex the indexes of the chosen cards in the flop.
+	 * @param currentBet the current bet.
+	 */
     public void testAiFlop(int[] flopIndex, int currentBet){
     	flop[0] = getSpecifiedCard(flopIndex[0]);
 		flop[1] = getSpecifiedCard(flopIndex[1]);
@@ -55,6 +78,12 @@ public class TestAi {
 		System.out.println(ai.getDecision());
 	}
 
+	/**
+	 * Function which takes the turn card and the current bet as parameters.
+	 * Calls the AI-player to make a decision on them.
+	 * @param turnIndex the turn cards index in the deck.
+	 * @param currentBet the current bet.
+	 */
 	public void testAiTurn(int turnIndex, int currentBet){
 		cardTurn = getSpecifiedCard(turnIndex);
 
@@ -63,6 +92,12 @@ public class TestAi {
 		System.out.println(ai.getDecision());
 	}
 
+	/**
+	 * Function which takes the river card and the current bet as parameters.
+	 * Calls the AI-player to make a decision on them.
+	 * @param turnIndex the turn cards index in the deck.
+	 * @param currentBet the current bet.
+	 */
 	public void testAiRiver(int riverIndex, int currentBet){
 		cardRiver = getSpecifiedCard(riverIndex);
 
@@ -70,10 +105,7 @@ public class TestAi {
 		ai.makeDecision(currentBet, cardRiver);
 		System.out.println(ai.getDecision());
 	}
-
-
-
-
+	
     public static void main(String[] args) {
         TestAi run = new TestAi();
 		//Card Values:
@@ -84,21 +116,20 @@ public class TestAi {
 		int card1Value = 12;
 		int card2Value = 25;
 		// To test the test cases: TF1, TF6, TF7 & TF8.
-		// Assign the starting hands cards, set the AI name and pot.
-		// Set the current bet and then run the program.
+		// Assign the starting hand cards (card1Value, card2Value), set the AI name and pot(aiName, aiPot).
+		// Set the current bet and then run the method testAiStartingHand().
 		String aiName = "Tramse";
 		int aiPot = 500;
 		run.setAi(aiPot, aiName);
         run.testAiStartingHand(card1Value, card2Value,32);
 
-        //To test the test case TF2 & TF9 assign the flopIndexes, turnCard and riverCard variable and run all methods.
+        //To test the test case TF2 & TF9, also assign the flopIndexes, turnCard and riverCard variable and run all methods.
 		int[] flopIndexes = {38,51,0};
 		run.testAiFlop(flopIndexes,48);
 
-		//method for testing test case TF
+		//Methods for testing test case TF2. Assign turnCard, riverCard and run the methods.
 		int turnCard = 13;
         run.testAiTurn(turnCard, 52);
-		//method for testing test case TF2
 		int riverCard = 26;
 		run.testAiRiver(riverCard, 70);
     }
