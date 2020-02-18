@@ -91,6 +91,13 @@ public class SettingsController {
 	public boolean potInputChange() {
 		try {
 			potValue = Integer.parseInt(tfPotsize.getText());
+
+			if(potValue > 100000) {
+				potValue = 100000;
+			} else if(potValue < 1000) {
+				potValue = 1000;
+			}
+
 			return true;
 
 		} catch(Exception e) {
