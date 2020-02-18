@@ -772,6 +772,12 @@ public class GameLogicController extends Thread {
   }
 
   public ArrayList<String> getAicards(int position) {
+
+    //Makes sure we retrieve the correct cards
+    if(noOfAi == 3) {
+      position = position/2;
+    }
+
     return aiPlayers.get(position).getAiCards();
 
   }
