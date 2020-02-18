@@ -41,20 +41,11 @@ public class Deck {
   }
 
   /**
-<<<<<<< HEAD
    * Returns the reference of the specified card.
    * @param index
    * @return
    */
   public Card getCard(int index) {
-=======
-   * Returns the reference of specified card without removing it.
-   * //Andreas
-   * @param index the index of the card
-   * @return
-   */
-  public Card getCard(int index){
->>>>>>> Andreas
     return deck.get(index);
   }
 

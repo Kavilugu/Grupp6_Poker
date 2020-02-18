@@ -72,20 +72,8 @@ public class TestAi {
 		flop[1] = getSpecifiedCard(flopIndex[1]);
 		flop[2] = getSpecifiedCard(flopIndex[2]);
 
-<<<<<<< HEAD
-    ai.setStartingHand(card1, card2);
-//    ai.makeDecision(150);
-
-    ai.makeDecision(32, flop);
-//
-//    System.out.println("\n\n-Test TURN-");
-//    ai.makeDecision(32, cardTurn);
-//    System.out.println(ai.getDecision());
-//
-//    System.out.println("\n\n-Test RIVER-");
-//    ai.makeDecision(32, cardRiver);
-//    System.out.println(ai.getDecision());
-=======
+    	ai.setStartingHand(card1, card2);
+    	ai.makeDecision(32, flop);
 		System.out.println("\n\n-Test FLOP-");
 		//Sends the current bet the AI has to pay to keep playing and the flop (the first three cards that everyone gets to see).
 		ai.makeDecision(currentBet, flop);
@@ -100,7 +88,6 @@ public class TestAi {
 	 */
 	public void testAiTurn(int turnIndex, int currentBet){
 		cardTurn = getSpecifiedCard(turnIndex);
->>>>>>> Andreas
 
 		System.out.println("\n\n-Test TURN-");
 		ai.makeDecision(currentBet, cardTurn);
@@ -110,7 +97,7 @@ public class TestAi {
 	/**
 	 * Function which takes the river card and the current bet as parameters.
 	 * Calls the AI-player to make a decision on them.
-	 * @param turnIndex the turn cards index in the deck.
+	 * @param riverIndex the river cards index in the deck.
 	 * @param currentBet the current bet.
 	 */
 	public void testAiRiver(int riverIndex, int currentBet){
