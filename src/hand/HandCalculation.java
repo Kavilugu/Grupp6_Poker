@@ -35,7 +35,6 @@ public class HandCalculation {
 	 * @param aiCards Current cards needed for evaluate.
 	 */
 	public HandCalculation(ArrayList<String> aiCards) {
-		
 		this.aiCards = aiCards;
 		getCardValues(aiCards);
 		toHighlight.clear();
@@ -47,21 +46,18 @@ public class HandCalculation {
 		Help();
 	}
 
-	
 	/**
 	 * converts the cards value into two diffirent arraylists.
 	 * one for cardnumber and one for cardcolor.
 	 * @param aiCards current card being used
 	 */
 	public void getCardValues(ArrayList<String> aiCards){
-		
 		for(int i = 0; i<aiCards.size(); i++){			//CardNumber
 			 String temp = aiCards.get(i);
 			 String[] splitter = temp.split(",");
 			 int tempInt = Integer.parseInt(splitter[0]);
 			 cardNbr.add(tempInt);
 		}
-
 		
 		for(int i = 0; i<aiCards.size(); i++){			//CardColor		
 			 String temp = aiCards.get(i);
@@ -70,6 +66,7 @@ public class HandCalculation {
 			 cardClr.add(tempString);
 		}
 	}
+
 	/**
 	 * 
 	 * @return returns how many pairs or more the player has.
@@ -81,20 +78,18 @@ public class HandCalculation {
 		int nbrOftemp2 = 0;
 		int size = aiCards.size();
 		int[] cards = new int[size+1];
-		
-		
+
 		for(int i = 0; i< size; i++){
 			cards[i] = cardNbr.get(i);
 		}
 		
-		if(cards[0]==cards[1]){
+		if(cards[0] == cards[1]){
 			int temp = cards[0];
 			 nbrOftemp = 2;
 			 toHighlight.clear();
 			 toHighlight.add(aiCards.get(1));
 			 toHighlight.add(aiCards.get(0));
 			 yourCard = aiCards.get(0);
-			 otherCard = aiCards.get(1);
 			
 			for(int i = 2; i<cards.length; i++){
 				if(cards[i]==temp){
@@ -102,71 +97,47 @@ public class HandCalculation {
 					
 				}
 			}
-		}
-		
-		else{
+		} else {
 		int temp1 = cards[0];
-		int temp2 = cards[1];	
+		int temp2 = cards[1];
 		
+		nbrOftemp1 = 1;
+		nbrOftemp2 = 1;
 		
-		 nbrOftemp1 = 1;
-		 nbrOftemp2 = 1;
-		
-		
-		for(int i = 2; i<cards.length; i++){
-				
-			if(cards[i]==temp1){
-				if(cards[i] + temp2 <=10){
-					lowCards=true;
-				}
-				if(cards[i] + temp2 > 17){
-					highCards=true;
-				}
-
+		for(int i = 2; i < cards.length; i++){
+			if(cards[i] == temp1){
 				nbrOftemp1++;
-				
 				yourCard = aiCards.get(0);
-				otherCard = aiCards.get(i);
-				yourCard2 = aiCards.get(0);
 			}
-			if(cards[i]==temp2){
-				
-				if(cards[i] + temp2 > 17){
-					highCards=true;
-				}
-				
-				if(cards[i] + temp2 <= 10){
-					lowCards=true;
-				}
+			if(cards[i] == temp2){
 				nbrOftemp2++;
 				yourCard = aiCards.get(1);
-				otherCard = aiCards.get(i);
-				
 			}
 		  }
 		}	
 			
-		if(nbrOftemp>0){
+		if(nbrOftemp > 0){
 			same = nbrOftemp;
 		}
 		
-		if(nbrOftemp1>1){
-			same=nbrOftemp1;
+		if(nbrOftemp1 > 1){
+			same = nbrOftemp1;
 		}
-		
-		if(nbrOftemp2>1){
-			if(nbrOftemp1>1){
-				same =Integer.parseInt(nbrOftemp1 +""+ nbrOftemp2);
+
+		//2 pairs = 22
+		if(nbrOftemp2 > 1){
+			if(nbrOftemp1 > 1){
+				same = Integer.parseInt(nbrOftemp1 + "" + nbrOftemp2);
 			}
 			else
 			same = nbrOftemp2;
 		}	
 		
-		if(same==1)
-			same=0;
+		if(same == 1)
+			same = 0;
 		return same;
-
 	}
+
 	/**
 	 * 
 	 * @return returns true if cards value >= 17.
@@ -177,15 +148,15 @@ public class HandCalculation {
 		
 		int card1 = cardNbr.get(0);
 		int card2 = cardNbr.get(1);
-		
 		int total = (card1+card2);
 		
-		if(total>=17){
-			high=true;
+		if(total >= 17){
+			high = true;
 		}
-		if(card1>=10 && card2>=10){
-			 rlyhighCards=true;
-			}
+
+		if(card1 >= 10 && card2 >= 10){
+			 rlyhighCards = true;
+		}
 		
 		return high;
 	}
@@ -213,7 +184,7 @@ public class HandCalculation {
 			}
 		}
 		
-		if(S>color){
+		if(S > color){
 			toHighlight.clear();
 			color =  S;
 			theColor = "spader";
@@ -226,19 +197,19 @@ public class HandCalculation {
 			}
 		}
 		
-		if(H>color){
+		if(H > color){
 			toHighlight.clear();
 			color =  H;
 			theColor = "hjärter";
-			for(int i = 0; i<cardClr.size(); i++){
+			for(int i = 0; i < cardClr.size(); i++){
 				String temp = cardClr.get(i);
-				if(H==5)
+				if(H == 5)
 				if(temp.equals("H")){
 					toHighlight.add(aiCards.get(i));
 				}
 			}
 		}
-		if(D>color){
+		if(D > color){
 			toHighlight.clear();
 			color =  D;
 			theColor = "ruter";
@@ -250,7 +221,7 @@ public class HandCalculation {
 				}
 			}
 		}
-		if(C>color){
+		if(C > color){
 			toHighlight.clear();
 			color =  C;
 			theColor = "klöver";
@@ -271,67 +242,55 @@ public class HandCalculation {
 	 * @return returns if the player has a straight or even has a chance for one.
 	 */
 	public int checkStraight(){
-		
 		int threshold = 0;
-		
 		int[] CorrectOrderArray = new int[cardNbr.size()];
 
 		for (int i = 0; i < cardNbr.size(); i++) {			//as referance when getting to highlight.
 			CorrectOrderArray[i] = cardNbr.get(i);
 		}
 		
-		for(int i = 0; i<cardNbr.size(); i++){
-			if(cardNbr.get(i)==14){
+		for(int i = 0; i < cardNbr.size(); i++){
+			if(cardNbr.get(i) == 14){
 				cardNbr.add(1);
 			}
 		}
 		
 		int[] CurrentCardsArray = new int[cardNbr.size()];
-		
 		for(int i = 0; i< cardNbr.size(); i++){
 			CurrentCardsArray[i] = cardNbr.get(i);
 		}
-		
 		Arrays.sort(CurrentCardsArray);
 		int inStraight = 0;	
 		int check = 4;
 		
-	for(int x = 0; x<CurrentCardsArray.length; x++){	
+	for(int x = 0; x < CurrentCardsArray.length; x++){
 		int CurrentHighestInStraight = CurrentCardsArray[x]+check;
 		int CurrentLowestInStraight = CurrentCardsArray[x];
 		String tempStraight = CurrentLowestInStraight+"-"+CurrentHighestInStraight;
 		
 		inStraight = 0;
 
-		
-		for(int i = 0; i<CurrentCardsArray.length; i++){
-		  
-			if(CurrentCardsArray[i]<=CurrentHighestInStraight && !(CurrentCardsArray[i]<CurrentLowestInStraight)){
-					
-				if(i==0){							//kollar om 0 är samma som 1.
-			
+		for(int i = 0; i < CurrentCardsArray.length; i++){
+			if(CurrentCardsArray[i] <= CurrentHighestInStraight && !(CurrentCardsArray[i]<CurrentLowestInStraight)){
+				if(i == 0){							//kollar om 0 är samma som 1.
 						inStraight++;
-						if(CurrentCardsArray[i]==1){
+						if(CurrentCardsArray[i] == 1){
 							nbrForStraight.add(String.valueOf(CurrentCardsArray[CurrentCardsArray.length-1]));
 						}
 						else{
 							nbrForStraight.add(String.valueOf(CurrentCardsArray[i]));
 						}
-					
 				}
-				
-				if(i>=1){							
-					if(!(CurrentCardsArray[i]==CurrentCardsArray[i-1])){		//kollar om 1-4 är samma som nån annan.
+				if(i >= 1){
+					if(!(CurrentCardsArray[i]==CurrentCardsArray[i-1])){//kollar om 1-4 är samma som nån annan.
 						inStraight++;
 						nbrForStraight.add(String.valueOf(CurrentCardsArray[i]));
 					}
 				}
-
 			}
 		}
 
 		if (inStraight >= threshold) {  // >= så om man får 5 igen men med högre tal så blir det den som visas.
-
 			threshold = inStraight;
             whatStraight = tempStraight;
 			nbrForStraight1.clear();
@@ -376,12 +335,12 @@ public class HandCalculation {
 			pwrBar = pwrBarLvlOnTurnTwo();
 		}
 		//TURNTHREE PWRLEVEL
-		if (aiCards.size() == 6) {			
-		 pwrBar = pwrBarLvlOnTurnThree();
+		if (aiCards.size() == 6) {
+			pwrBar = pwrBarLvlOnTurnThree();
 		}
 		//TURNFOUR PWRLEVEL
 		if (aiCards.size() == 7) {
-		pwrBar = pwrBarLvlOnTurnFour();
+			pwrBar = pwrBarLvlOnTurnFour();
 		}
 		return pwrBar;
 	}
@@ -447,7 +406,7 @@ public class HandCalculation {
 		if (pairsNmore == 23 || pairsNmore == 32) {
 			pwrBar = 4;
 		}
-		if (straightChance == 5 || colorChance ==5) {
+		if (straightChance == 5 || colorChance == 5) {
 			pwrBar = 4;
 		}
 	
@@ -533,7 +492,6 @@ public class HandCalculation {
 	 * @return returns a advice for the player that is current for his or her hand.
 	 */
 	public String Help(){
-		
 		String helper= "Ingenting, tyvärr...";
 		String advice = "Denna hand kanske inte är den bästa att spela på...";
 		

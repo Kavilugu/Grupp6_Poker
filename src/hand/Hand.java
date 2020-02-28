@@ -32,8 +32,6 @@ public class Hand {
 		advice = calc.advice();
 		pwrBar = calc.calcPwrBarLvl();
 		toHighlight = calc.toHiglight();
-
-
 	}
 
 	
@@ -41,7 +39,6 @@ public class Hand {
 	 * Converts the cards into readable Strings.
 	 */
 	public void convertToReadable() {
-
 		for (int i = 0; i < cards.size(); i++) {
 			Card cardTemp = cards.get(i);
 			char A = cardTemp.getCardSuit().charAt(0);
@@ -56,10 +53,10 @@ public class Hand {
 	 */
 	public void reCalc() {
 		this.calc = new HandCalculation(aiCards);
-
 		this.advice = calc.advice();
 		this.toHighlight = calc.toHiglight();
 	}
+
 /**
  * returns a number that will be used to set a image to visualize the users handStrength
  * @return a int that represents the users cardStregnth

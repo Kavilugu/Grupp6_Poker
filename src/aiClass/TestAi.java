@@ -102,7 +102,6 @@ public class TestAi {
 	 */
 	public void testAiRiver(int riverIndex, int currentBet){
 		cardRiver = getSpecifiedCard(riverIndex);
-
 		System.out.println("\n\n-Test RIVER-");
 		ai.makeDecision(currentBet, cardRiver);
 		System.out.println(ai.getDecision());

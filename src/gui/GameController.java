@@ -763,9 +763,7 @@ public class GameController {
      * getHighlightedCards (important during pre-flop situation).
      */
     public void checkHand() {
-
         Platform.runLater(() -> {
-
             hand.reCalc();
             playerCardsArea.requestLayout();
             playerCardsArea.getChildren().clear();
@@ -812,7 +810,6 @@ public class GameController {
      * @param setOfCards Set of cards shown on the table.
      */
     public void setFlopTurnRiver(Card[] setOfCards) {
-
         this.cards = new ArrayList<Card>(); // Clears the cards list
         cards.add(card1); // Adds card one and card two (player's cards in the
         // hand)
@@ -871,12 +868,10 @@ public class GameController {
      * Clears the cards on the table.
      */
     public void clearFlopTurnRiver() {
-
         Platform.runLater(() -> {
             tabelCardArea.getChildren().clear();
         });
     }
-
 
     /**
      * Method which makes the player the smallblind.
@@ -884,18 +879,13 @@ public class GameController {
      * @param i the amount to pay
      */
     public void playerSmallBlind(int i) {
-
         this.alreadyPaid += i;
         this.playerPot -= i;
         Platform.runLater(() -> {
-
             ivSmallBlind.relocate(520, 425);
-
         });
         updatePots(new int[1][0], spController.getPotSize());
-
     }
-
 
     /**
      * Method which makes the player the bigBlind
@@ -903,16 +893,13 @@ public class GameController {
      * @param i the amount to pay
      */
     public void playerBigBlind(int i) {
-
         this.alreadyPaid += i;
         this.playerPot -= i;
         Platform.runLater(() -> {
             ivBigBlind.relocate(520, 425);
-
         });
         updatePots(new int[1][0], spController.getPotSize());
     }
-
 
     /**
      * Returns the amount of money that the player has already bet
@@ -920,10 +907,8 @@ public class GameController {
      * @return The amount of money that the player has already bet
      */
     public int getPlayerAlreadyPaid() {
-
         return this.alreadyPaid;
     }
-
 
     /**
      * Method which sets the player as dealer
@@ -931,7 +916,6 @@ public class GameController {
      * @param i not used.
      */
     public void playerIsDealer(int i) {
-
         if ((int) ivBigBlind.getLayoutX() == 520 || (int) ivSmallBlind.getLayoutX() == 520) {
             ivDealer.setLayoutX(500);
             ivDealer.setLayoutY(425);
@@ -946,21 +930,17 @@ public class GameController {
      * Method which fetches the advice for the player and displays it in the bottom left pane
      */
     public void handHelp() {
-
         String powerBarWeakHand = "resources/images/weakHand.png";
         String powerBarMediumWeakHand = "resources/images/mediumWeakHand.png";
         String powerBarMediumStrongHand = "resources/images/mediumStrongHand.png";
         String powerBarStrongHand = "resources/images/StrongHand.png";
 
         Platform.runLater(() -> {
-
             String helpText = hand.theHelp();
             helpLabel.setText("Du har: \n" + helpText);
             String adviceText = hand.theAdvice();
             adviceLabel.setText("Råd: \n" + adviceText);
-
             powerBarValue = hand.toPowerBar();
-
 
             if (powerBarValue == 1) {
                 powerBarArea.getChildren().remove(imgPowerBar);
@@ -969,7 +949,6 @@ public class GameController {
                 powerBarArea.getChildren().add(imgPowerBar);
                 imgPowerBar.setX(15);
                 imgPowerBar.setY(0);
-
             } else if (powerBarValue == 2) {
                 powerBarArea.getChildren().remove(imgPowerBar);
                 image =
@@ -978,7 +957,6 @@ public class GameController {
                 powerBarArea.getChildren().add(imgPowerBar);
                 imgPowerBar.setX(15);
                 imgPowerBar.setY(0);
-
             } else if (powerBarValue == 3) {
                 powerBarArea.getChildren().remove(imgPowerBar);
                 image =
@@ -987,7 +965,6 @@ public class GameController {
                 powerBarArea.getChildren().add(imgPowerBar);
                 imgPowerBar.setX(15);
                 imgPowerBar.setY(0);
-
             } else if (powerBarValue == 4) {
                 powerBarArea.getChildren().remove(imgPowerBar);
                 image = new Image(Paths.get(powerBarStrongHand).toUri().toString(), 120, 166, true, true);
@@ -995,14 +972,10 @@ public class GameController {
                 powerBarArea.getChildren().add(imgPowerBar);
                 imgPowerBar.setX(15);
                 imgPowerBar.setY(0);
-
             }
             this.handStrength = hand.getHandStrenght();
-
         });
-
     }
-
 
     /**
      * Returns the players decision.

@@ -71,7 +71,6 @@ public class AiDecide {
  * Decides a decision for the first turn of a new round.
  */
   public void turnOne() {
-
     boolean check = false;
     if (toBet == 0) {
       check = true;
@@ -144,7 +143,6 @@ public class AiDecide {
    * Decides a decision for the second turn of a new round.
    */
   public void turnTwo() {
-
     boolean check = false;
     if (toBet == 0) {
       check = true;
@@ -218,7 +216,6 @@ public class AiDecide {
    * Decides a decision for the third turn of a new round.
    */
   public void turnThree() {
-
     boolean check = false;
     if (toBet == 0) {
       check = true;
@@ -293,7 +290,6 @@ public class AiDecide {
    * Decides a decision for the last turn of a new round.
    */
   public void turnFour() {
-
     boolean check = false;
     if (toBet == 0) {
       check = true;
@@ -354,10 +350,7 @@ public class AiDecide {
 
     }
     aiPot -= howMuchToTakeAwayFromAiPot;
-
   }
-
-
   // TO GAME
 
   /**
@@ -365,7 +358,6 @@ public class AiDecide {
    * @return returns the ai-players handStrenght
    */
   public int gethandStrength() {
-
     return handStrenght;
   }
 
@@ -374,7 +366,6 @@ public class AiDecide {
  * @return returns a updated version of the ai-players pot after this turn.
  */
   public int updateAiPot() {
-
     return aiPot;
   }
 

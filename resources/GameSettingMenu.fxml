@@ -42,7 +42,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Slider>
-            <TextField fx:id="tfPotsize" prefHeight="98.0" prefWidth="472.0" promptText="Ange pottstorlek">
+            <TextField fx:id="tfPotsize" prefHeight="98.0" prefWidth="472.0" promptText="Ange pottstorlek, 1'000 - 100'000">
                <VBox.margin>
                   <Insets bottom="40.0" />
                </VBox.margin>

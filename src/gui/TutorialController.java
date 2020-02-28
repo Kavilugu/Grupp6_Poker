@@ -79,6 +79,7 @@ public class TutorialController {
 		placeImg(0);
 
 	}
+
 	/**
 	 * Initializes the tutorial window and all UI objects. Loads tutorial.fxml and starts the "button-listener" for next.
 	 * If the user cancels the tutorial mid-way, the window closes and the user is sent back to the game.
