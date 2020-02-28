@@ -21,7 +21,7 @@ public class HandCalculation {
 	private boolean rlyhighCards = false;
 	private int colorChance;
 	private int straightChance;
-	private int pairsNmore;
+	private int  pairsNmore;
 	private String yourCard ="1,1";
 	private String yourCard2 ="1,1";
 	private String otherCard ="1,1";

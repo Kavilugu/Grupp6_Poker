@@ -33,7 +33,6 @@ public class Hand {
 		pwrBar = calc.calcPwrBarLvl();
 		toHighlight = calc.toHiglight();
 
-
 	}
 
 	

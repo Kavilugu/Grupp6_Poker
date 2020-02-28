@@ -1,6 +1,7 @@
 package gui;
 
 import java.io.IOException;
+import java.nio.file.Paths;
 
 import controller.GameLogicController;
 import javafx.application.Platform;
@@ -8,7 +9,9 @@ import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.event.ActionEvent;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 
 /**
@@ -62,9 +65,13 @@ public class SettingsController {
 	private Pane tutorialPane;
 	@FXML
 	private ImageView btnNext;
+	@FXML
+	private ImageView ivSound;
 
 	private Sound sound = new Sound();
 	private TutorialController tutorialWindow;
+
+	private boolean isMuted;
 
 	/**
 	 * Method for initializing FXML. 
@@ -289,5 +296,22 @@ public class SettingsController {
 	 */
 	public String getName() {
 		return name;
+	}
+
+	public void soundSetting(MouseEvent mouseEvent) {
+		if (!isMuted) {
+			Image image = new Image(Paths.get("resources/images/soundButtonOff.png").toUri().toString());
+			ivSound.setImage(image);
+			sound.muteSound(true);
+
+			isMuted = true;
+
+		} else if (isMuted){
+			Image image = new Image(Paths.get("resources/images/soundButton.png").toUri().toString());
+			ivSound.setImage(image);
+			sound.muteSound(false);
+			//sound.mp.setMute(true);
+			isMuted = false;
+		}
 	}
 }

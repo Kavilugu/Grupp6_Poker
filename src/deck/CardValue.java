@@ -26,9 +26,12 @@ public enum CardValue {
 	 * Creates the card values
 	 * @param value an int between 2-14
 	 */
+
 	private CardValue(int value) {
+
 		this.cardValue = value;
 	}
+
 
 
 	/**
@@ -36,6 +39,7 @@ public enum CardValue {
 	 * @return the card value
 	 */
 	public int getCardValue() {
+
 		return cardValue;
 	}
 }

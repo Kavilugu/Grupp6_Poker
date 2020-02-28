@@ -54,6 +54,7 @@ public class GameController {
     @FXML
     private Label helpLabel;
     @FXML
+
     private Label userName;
     @FXML
     private Label raiseLabel;
@@ -608,6 +609,8 @@ public class GameController {
 
         }
     }
+
+
 
 
     /**

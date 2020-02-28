@@ -1,10 +1,13 @@
 package gui;
 
 import java.io.IOException;
+import java.nio.file.Paths;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 
 /**
  * Controller for FXML-doc FirstMenu.fxml.
@@ -24,6 +27,17 @@ public class UIController {
 	private ImageView ivNewGame;
 	@FXML
 	private ImageView ivLoadGame;
+	@FXML
+	private  ImageView ivSound;
+	private boolean muteSound;
+
+
+
+	//public UIController() {
+	//	Image image = new Image(Paths.get("resources/images/soundButton.png").toUri().toString());
+	//	ivSound.setImage(image);
+	//}
+
 
 	/**
 	 * Generated method for the FXML.
@@ -65,10 +79,27 @@ public class UIController {
 		// String pot = fileHandler.loadPot();
 		// System.out.println(fileHandler.loadPot());
 
-		System.out.println("LoadGame");
-		sound = new Sound();
-		sound.playSound("wrong");
+//		System.out.println("LoadGame");
+//		sound = new Sound();
+//		sound.playSound("wrong");
 
 	}
 
+	public void soundSetting(MouseEvent mouseEvent) {
+		if (!muteSound) {
+			Image image = new Image(Paths.get("resources/images/soundButtonOff.png").toUri().toString());
+			ivSound.setImage(image);
+			sound.muteSound(true);
+			muteSound = true;
+
+		} else if (muteSound){
+			Image image = new Image(Paths.get("resources/images/soundButton.png").toUri().toString());
+			ivSound.setImage(image);
+			sound.muteSound(false);
+			muteSound = false;
+	}
+
+
+
+	}
 }
