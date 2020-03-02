@@ -607,7 +607,7 @@ public class HandCalculation {
 		
 		// ONE PAIR
 			if(pairsNmore==2){
-				helper = "'ONE-PAIR' i " +  yourCardInt +"\n";
+				helper = "'ONE-PAIR' i " +  yourCardInt ;
 				if(aiCards.size()==2){
 					advice = "'ONE-PAIR' på första-handen är en stark hand!\nSå kör på!\n";
 					if(highCards){
@@ -689,7 +689,7 @@ public class HandCalculation {
 		
 		//STRAIGHT
 		if(straightChance==5){		
-			helper = "En 'STRAIGHT'!! Du har 5/5.\n";
+			helper = "En 'STRAIGHT'!! Du har 5/5.";
 			advice = "En 'STRAIGHT' är en riktigt bra hand. Kör på! \nFundera även på att höja!\n";
 			toHighlight.clear();
 			toHighlight = getToHighlight();		
@@ -699,7 +699,7 @@ public class HandCalculation {
 		
 		//FLUSH
 		if(colorChance==5){
-			helper = "En 'FLUSH' i " + theColor + "!! Du har 5/5!!\n";
+			helper = "En 'FLUSH' i " + theColor + "!! Du har 5/5!!";
 			advice = "Du har en 'FLUSH'! Kör på, din hand är svår att slå!\n";
 			//To HIHGLIGHT IS IN checkSuit Method.
 			toHighlight.clear();

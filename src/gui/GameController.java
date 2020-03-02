@@ -2,12 +2,13 @@ package gui;
 
 import java.io.IOException;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.LinkedList;
+import java.util.*;
 
 import aiClass.Ai;
 import controller.GameLogicController;
 import deck.Card;
+import deck.CardValue;
+import deck.Suit;
 import hand.Hand;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -17,7 +18,6 @@ import javafx.scene.control.Slider;
 import javafx.scene.control.TitledPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 
 /**
@@ -219,7 +219,10 @@ public class GameController {
     private int AllInViability = 0;
     private Label[] collectionOfPots;
     private int originalPotSize;
-    private ImageView[][] aiCardsAfterFold;
+    private ImageView[][] aiCardsAfterFoldOrEndOfGame;
+    private boolean wantToRun;
+    private Card[] flopTurnRiverCards;
+    private int round = 0;
 
     public GameController() {
         sound.playBackgroundMusic();
@@ -254,17 +257,17 @@ public class GameController {
         // chosen number of AI:s.
         this.aiPositions = new int[][]{{2}, {0, 2, 4}, {0, 1, 2, 3, 4, 5}};
 
-        this.aiCardsAfterFold = new ImageView[][] {
+        this.aiCardsAfterFoldOrEndOfGame = new ImageView[][]{
                 {firstAiCardsAfterFoldOne,
-                firstAiCardsAfterFoldTwo},
+                        firstAiCardsAfterFoldTwo},
                 {secondAiCardsAfterFoldOne,
-                secondAiCardsAfterFoldTwo},
+                        secondAiCardsAfterFoldTwo},
                 {thirdAiCardsAfterFoldOne,
-                thirdAiCardsAfterFoldTwo},
+                        thirdAiCardsAfterFoldTwo},
                 {fourthAiCardsAfterFoldOne,
-                fourthAiCardsAfterFoldTwo},
+                        fourthAiCardsAfterFoldTwo},
                 {fifthAiCardsAfterFoldOne,
-                fifthAiCardsAfterFoldTwo}};
+                        fifthAiCardsAfterFoldTwo}};
 
         // Table cards placeholders.
         this.collectionOfCardsTable =
@@ -344,15 +347,15 @@ public class GameController {
 
                 String oneCardString = spController.getAicards(position).get(i).replace(",", "");
 
-                if(i == 0) {
-                    aiCardsAfterFold[position][i].setX(40);
+                if (i == 0) {
+                    aiCardsAfterFoldOrEndOfGame[position][i].setX(40);
                 }
 
-                aiCardsAfterFold[position][i].setY(-20);
+                aiCardsAfterFoldOrEndOfGame[position][i].setY(-20);
 
-                aiCardsAfterFold[position][i].setImage(new Image(Paths.get(resource + oneCardString + ".png").toUri().toString(), 122,
+                aiCardsAfterFoldOrEndOfGame[position][i].setImage(new Image(Paths.get(resource + oneCardString + ".png").toUri().toString(), 122,
                         158, true, true));
-                aiCardsAfterFold[position][i].setVisible(true);
+                aiCardsAfterFoldOrEndOfGame[position][i].setVisible(true);
 
 
             }
@@ -367,6 +370,28 @@ public class GameController {
         }
     }
 
+    public void showCardsEndOfRound(int position) {
+        String resource = "resources/images/"; // 122, 158
+        Image hideCards = new Image(Paths.get(resource + "aiBarWithoutCards.png").toUri().toString(),
+                122, 158, true, true);
+
+        for (int i = 0; i < 2; i++) {
+
+            String oneCardString = spController.getAicards(position).get(i).replace(",", "");
+
+            if (i == 0) {
+                aiCardsAfterFoldOrEndOfGame[position][i].setX(40);
+            }
+
+            aiCardsAfterFoldOrEndOfGame[position][i].setY(-20);
+
+            aiCardsAfterFoldOrEndOfGame[position][i].setImage(new Image(Paths.get(resource + oneCardString + ".png").toUri().toString(), 122,
+                    158, true, true));
+            aiCardsAfterFoldOrEndOfGame[position][i].setVisible(true);
+
+        }
+        collectionOfCardsAi[position].setImage(hideCards);
+    }
 
     /**
      * Sets the GameLogicController for this gameController
@@ -708,10 +733,10 @@ public class GameController {
 
     private void clearAiFold() {
 
-        for(int i = 0; i < 5; i++) {
-            for(int j = 0; j < 2; j++) {
-                aiCardsAfterFold[i][j].setImage(null);
-                aiCardsAfterFold[i][j].setVisible(false);
+        for (int i = 0; i < 5; i++) {
+            for (int j = 0; j < 2; j++) {
+                aiCardsAfterFoldOrEndOfGame[i][j].setImage(null);
+                aiCardsAfterFoldOrEndOfGame[i][j].setVisible(false);
 
             }
         }
@@ -818,7 +843,10 @@ public class GameController {
         // hand)
         cards.add(card2);
 
+        flopTurnRiverCards = setOfCards;
+
         for (Card c : setOfCards) {
+            System.out.println(c.getCardSuit() + c.getCardValue());
             cards.add(c); // Adds cards from flop/turn/river
         }
 
@@ -955,12 +983,13 @@ public class GameController {
         Platform.runLater(() -> {
 
             String helpText = hand.theHelp();
-            helpLabel.setText("Du har: \n" + helpText);
+            String tableCardsText = calculateFlopTurnRiver();
+
+            helpLabel.setText("Du har: \n" + helpText + "\nAlla har: " + tableCardsText);
+
             String adviceText = hand.theAdvice();
             adviceLabel.setText("Råd: \n" + adviceText);
-
             powerBarValue = hand.toPowerBar();
-
 
             if (powerBarValue == 1) {
                 powerBarArea.getChildren().remove(imgPowerBar);
@@ -1373,7 +1402,10 @@ public class GameController {
                 winnerBox.displayWinner("Förlust",
                         "Tyvärr, du förlorade och dina pengar är slut. Bättre lycka nästa gång!", 5,
                         winnerHand);
-
+                wantToRun = winnerBox.wantingToRun();
+                if (wantToRun) {
+                    spController.stopHold();
+                }
                 changeScene.switchToMainMenu();
 
             } catch (IOException | InstantiationException | IllegalAccessException e) {
@@ -1504,26 +1536,39 @@ public class GameController {
             Platform.runLater(() -> {
                 winnerBox = new WinnerBox();
                 winnerBox.displayWinner("Rundans vinnare", winnerOfRound, 2, winnerHand);
+                wantToRun = winnerBox.wantingToRun();
+                if (wantToRun) {
+                    spController.stopHold();
+                }
             });
         } else if (winnerOfRound.equals(getUsername()) && (hand < 10)) {
             Platform.runLater(() -> {
                 sound.playSound("coinSound");
                 winnerBox = new WinnerBox();
                 winnerBox.displayWinner("Rundans vinnare", winnerOfRound, 1, winnerHand);
-
+                wantToRun = winnerBox.wantingToRun();
+                if (wantToRun) {
+                    spController.stopHold();
+                }
             });
         } else if (winnerOfRound.equals(getUsername()) && (hand > 10)) {
             Platform.runLater(() -> {
                 sound.playSound("coinSound");
                 winnerBox = new WinnerBox();
                 winnerBox.displayWinner("Rundans vinnare", winnerOfRound, 3, winnerHand);
-
+                wantToRun = winnerBox.wantingToRun();
+                if (wantToRun) {
+                    spController.stopHold();
+                }
             });
         } else if (!winnerOfRound.equals(getUsername()) && (hand > 10)) {
             Platform.runLater(() -> {
                 winnerBox = new WinnerBox();
                 winnerBox.displayWinner("Rundans vinnare", winnerOfRound, 4, winnerHand);
-
+                wantToRun = winnerBox.wantingToRun();
+                if (wantToRun) {
+                    spController.stopHold();
+                }
             });
         }
     }
@@ -1549,7 +1594,7 @@ public class GameController {
 
 
     /**
-     * Method which returns the player viabilitylevel for potSplits
+     * Method which returns the player viability level for potSplits
      *
      * @return AllInViability viabilityLevel
      */
@@ -1607,4 +1652,204 @@ public class GameController {
         });
     }
 
+    /**
+     * Function which sets the round.
+     * @param round
+     */
+
+    public void setRound(int round) {
+        this.round = round;
+    }
+
+    /**
+     * Method which calls other methods to check the cards on the table, if there are combinations such as:
+     * One-pair, Two-Pair, Three of a kind and Flush.
+     * //TO-DO: Methods which check for Full-house, straight and combinations of straight flushes.
+     * @return result the result String which contains information about if there is combination on the table or not,
+     * which all players can use.
+     */
+    public String calculateFlopTurnRiver() {
+        StringBuilder result = new StringBuilder();
+        if (round == 0) {
+            result.delete(0, result.length());
+            result.append("Ingenting.");
+            return result.toString();
+        }
+        if(round == 1){
+            String checkPair = checkForOnePairTwoPairsThreeOfAKind();
+            if (!checkPair.equals("Ingenting.")) {
+                    result.delete(0, result.length());
+                    result.append(" " + checkPair);
+            }
+            String checkFlush = checkForFlush();
+            if (!checkFlush.equals("Ingenting.")) {
+                result.append(" \n" + checkFlush);
+            }
+            return result.toString();
+        }
+        if(round == 2){
+            String checkPair = checkForOnePairTwoPairsThreeOfAKind();
+            if (!checkPair.equals("Ingenting.")) {
+                result.delete(0, result.length());
+                result.append(" " + checkPair);
+            }
+            String checkFlush = checkForFlush();
+            if (!checkFlush.equals("Ingenting.")) {
+                result.append(" \n" + checkFlush);
+            }
+            return result.toString();
+        }
+        if(round == 3){
+            String checkPair = checkForOnePairTwoPairsThreeOfAKind();
+            if (!checkPair.equals("Ingenting.")) {
+                result.delete(0, result.length());
+                result.append(" " + checkPair);
+            }
+            String checkFlush = checkForFlush();
+            if (!checkFlush.equals("Ingenting.")) {
+                result.append(" \n" + checkFlush);
+            }
+            return result.toString();
+        }
+        return "Ingenting.";
+    }
+
+    /**
+     * Method which checks the cards on the table, if there is One-pair, Two-pair or Three of a kind.
+     * @return a String with information of the combination on the table.
+     */
+    public String checkForOnePairTwoPairsThreeOfAKind() {
+        HashMap<Integer, Integer> cardValueOccurrenceMap = new HashMap<>();
+
+        for (int i = 0; i < flopTurnRiverCards.length; i++) {
+            int cardValue = flopTurnRiverCards[i].getCardValue();
+            if (cardValueOccurrenceMap.containsKey(cardValue)) {
+                int occurrences = cardValueOccurrenceMap.get(cardValue);
+                occurrences++;
+                cardValueOccurrenceMap.put(cardValue, occurrences);
+            } else {
+                cardValueOccurrenceMap.put(cardValue, 1);
+            }
+        }
+        for (Map.Entry<Integer, Integer> occurrences : cardValueOccurrenceMap.entrySet()) {
+            if (occurrences.getValue() == 2) {
+                switch (occurrences.getKey()) {
+                    case 11:
+                        return "'ONE-PAIR' i knektar.";
+                    case 12:
+                        return "'ONE-PAIR' i damer.";
+                    case 13:
+                        return "'ONE-PAIR' i kungar.";
+                    case 14:
+                        return "'ONE-PAIR' i ess.";
+                    default:
+                        return "'ONE-PAIR' i " + occurrences.getKey() + "or.";
+                }
+            }
+            if (occurrences.getValue() == 3) {
+                switch (occurrences.getKey()) {
+                    case 11:
+                        return "'THREE OF A KIND' i knektar.";
+                    case 12:
+                        return "'THREE OF A KIND' i damer.";
+                    case 13:
+                        return "'THREE OF A KIND' i kungar.";
+                    case 14:
+                        return "'THREE OF A KIND' i ess.";
+                    default:
+                        return "'THREE OF A KIND' i " + occurrences.getKey() + "or.";
+                }
+            }
+            if (occurrences.getValue() == 4) {
+                switch (occurrences.getKey()) {
+                    case 11:
+                        return "'TWO-PAIR' i knektar.";
+                    case 12:
+                        return "'TWO-PAIR' i damer.";
+                    case 13:
+                        return "'TWO-PAIR' i kungar.";
+                    case 14:
+                        return "'TWO-PAIR' i ess.";
+                    default:
+                        return "'TWO-PAIR' i " + occurrences.getKey() + "or.";
+                }
+            }
+        }
+        return "Ingenting.";
+    }
+
+    /**
+     * Method which checks the cards on the table, if there is a chance of Flush.
+     * @return a String with information of the chance of a flush on the table.
+     */
+    public String checkForFlush() {
+        HashMap<String, Integer> cardSuitOccurrenceMap = new HashMap<>();
+
+        for (int i = 0; i < flopTurnRiverCards.length; i++) {
+            String cardSuit = flopTurnRiverCards[i].getCardSuit().toUpperCase();
+            if (cardSuitOccurrenceMap.containsKey(cardSuit)) {
+                int occurrences = cardSuitOccurrenceMap.get(cardSuit);
+                occurrences++;
+                cardSuitOccurrenceMap.put(cardSuit, occurrences);
+            } else {
+                cardSuitOccurrenceMap.put(cardSuit, 1);
+            }
+        }
+        for (Map.Entry<String, Integer> occurrences : cardSuitOccurrenceMap.entrySet()) {
+            if (occurrences.getValue() == 3) {
+                switch (occurrences.getKey()) {
+                    case "HEARTS":
+                        return "3/5 chans för 'FLUSH' i Hjärter.";
+                    case "SPADES":
+                        return "3/5 chans för 'FLUSH' i Spader.";
+                    case "DIAMONDS":
+                        return "3/5 chans för 'FLUSH' i Ruter.";
+                    case "CLUBS":
+                        return "3/5 chans för 'FLUSH' i Klöver.";
+                }
+            }
+            if (occurrences.getValue() == 4) {
+                switch (occurrences.getKey()) {
+                    case "HEARTS":
+                        return "4/5 chans för 'FLUSH' i Hjärter.";
+                    case "SPADES":
+                        return "4/5 chans för 'FLUSH' i Spader.";
+                    case "DIAMONDS":
+                        return "4/5 chans för 'FLUSH' i Ruter.";
+                    case "CLUBS":
+                        return "4/5 chans för 'FLUSH' i Klöver.";
+                }
+            }
+            if (occurrences.getValue() == 5) {
+                switch (occurrences.getKey()) {
+                    case "HEARTS":
+                        return "'FLUSH' i Hjärter.";
+                    case "SPADES":
+                        return "'FLUSH' i Spader.";
+                    case "DIAMONDS":
+                        return "'FLUSH' i Ruter.";
+                    case "CLUBS":
+                        return "'FLUSH' i Klöver.";
+                }
+            }
+        }
+        return "Ingenting.";
+    }
+
+    //TO-DO: A method for checking the chance of a Straight on the table.
+    public String checkForStraight() {
+        String result = "";
+        Card[] sortedCards = flopTurnRiverCards;
+        Arrays.sort(sortedCards);
+        if(round == 1){
+            for (int i = 0; i < sortedCards.length; i++) {
+                if ((i + 1) < sortedCards.length) {
+                    if ((sortedCards[i].getCardValue() + 1) == sortedCards[i + 1].getCardValue()) {
+                    }
+                }
+            }
+        }
+
+        return result;
+    }
 }
