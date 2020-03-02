@@ -12,6 +12,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 
 /**
  * Box that shows the winner of round. 
@@ -19,15 +20,15 @@ import javafx.stage.Stage;
  * version 1.0
  *
  */
-public class WinnerBox {
+public class WinnerBox{
 
 	public boolean answer = false;
 	public Stage window = new Stage();
 	public Font font = new Font("Tw Cen MT", 18);
 	private ImageView back = new ImageView(Paths.get("resources/images/background.png").toUri().toString());
 	private ImageView btnOk = new ImageView(Paths.get("resources/images/okButton.png").toUri().toString());
-	
-	
+	private boolean wantToRun = false;
+
 	/**
 	 * Creates a window containting messages of who won or lost. 
 	 * @param title String title of the window from the method that uses WinnerBox. 
@@ -48,7 +49,10 @@ public class WinnerBox {
 		window.setTitle(title);
 		window.setWidth(400);
 		window.setHeight(200);
-		window.setOnCloseRequest(e -> closeProgram());
+		window.setOnCloseRequest(e -> {
+			answer = true;
+			closeProgram();
+		});
 
 		Pane pane = new Pane();
 
@@ -99,7 +103,23 @@ public class WinnerBox {
 	 * Closes the window. 
 	 */
 	public void closeProgram() {
+		stopHold();
 		window.close();
 	}
 
+	/**
+	 * Method which sets the boolean running to true.
+	 * This Method is called upon user click on the Winner Box's OK-button.
+	 */
+	public void stopHold(){
+		wantToRun = true;
+	}
+
+	/**
+	 * Getter for the running variable.
+	 * Called in GameController to check status and then called by GameLogicController to keep holing the game or to start it again.
+	 */
+	public boolean wantingToRun(){
+		return wantToRun;
+	}
 }
