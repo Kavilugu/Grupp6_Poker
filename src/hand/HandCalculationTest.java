@@ -10,6 +10,15 @@ class HandCalculationTest {
 
     @Test
     void checkPairAndMore() {
+
+
+
+
+    }
+
+    @Test
+    void checkNoPairTest() {
+
         //Player has no pairs
         ArrayList<String> cards = new ArrayList<String>();
         cards.add("6,D");
@@ -19,12 +28,17 @@ class HandCalculationTest {
 
         assertEquals(0, hc.checkPairAndMore());
 
+    }
+
+    @Test
+    void checkPairTest() {
+
         //Player has one pair
-        cards = new ArrayList<String>();
+        ArrayList<String> cards = new ArrayList<String>();
         cards.add("7,D");
         cards.add("7,H");
 
-        hc = new HandCalculation(cards);
+        HandCalculation hc = new HandCalculation(cards);
 
         assertEquals(2, hc.checkPairAndMore());
 
@@ -67,16 +81,20 @@ class HandCalculationTest {
 
         assertEquals(2, hc.checkPairAndMore());
 
+    }
+
+    @Test
+    void checkTwoPairTest() {
+
         //Player has two pair
-        cards = new ArrayList<String>();
+        ArrayList<String> cards = new ArrayList<String>();
         cards.add("8,D");
         cards.add("7,H");
         cards.add("7,S");
         cards.add("8,C");
         cards.add("9,H");
 
-        hc = new HandCalculation(cards);
-        System.out.println("TWO PAIR TEST");
+        HandCalculation hc = new HandCalculation(cards);
 
         assertEquals(22, hc.checkPairAndMore());
 
@@ -89,9 +107,8 @@ class HandCalculationTest {
         cards.add("9,H");
 
         hc = new HandCalculation(cards);
-        System.out.println("TWO PAIR TEST");
 
-       // assertEquals(22, hc.checkPairAndMore());
+        assertEquals(22, hc.checkPairAndMore());
 
         //Player has two pair with one pair only in community cards
         cards = new ArrayList<String>();
@@ -102,31 +119,23 @@ class HandCalculationTest {
         cards.add("6,H");
 
         hc = new HandCalculation(cards);
-        System.out.println("TWO PAIR TEST");
 
-        //assertEquals(22, hc.checkPairAndMore());
+        assertEquals(22, hc.checkPairAndMore());
 
-        //Player has Four of a kind
-        cards = new ArrayList<String>();
-        cards.add("7,D");
-        cards.add("7,H");
-        cards.add("7,S");
-        cards.add("7,C");
-        cards.add("9,H");
+    }
 
-        hc = new HandCalculation(cards);
-
-        assertEquals(4, hc.checkPairAndMore());
+    @Test
+    void checkThreeOfAKindTest() {
 
         //Player has three of a kind with one card not among community cards
-        cards = new ArrayList<String>();
+        ArrayList<String> cards = new ArrayList<String>();
         cards.add("7,D");
         cards.add("9,H");
         cards.add("7,S");
         cards.add("7,C");
         cards.add("3,D");
 
-        hc = new HandCalculation(cards);
+        HandCalculation hc = new HandCalculation(cards);
 
         assertEquals(3, hc.checkPairAndMore());
 
@@ -140,18 +149,24 @@ class HandCalculationTest {
 
         hc = new HandCalculation(cards);
 
-        //assertEquals(3, hc.checkPairAndMore());
-
-
-
-
+        assertEquals(3, hc.checkPairAndMore());
 
     }
 
     @Test
-    void checkPairTest() {
+    void checkFourOfAKindTest() {
 
+        //Player has Four of a kind
+        ArrayList<String> cards = new ArrayList<String>();
+        cards.add("7,D");
+        cards.add("7,H");
+        cards.add("7,S");
+        cards.add("7,C");
+        cards.add("9,H");
 
+        HandCalculation hc = new HandCalculation(cards);
+
+        assertEquals(4, hc.checkPairAndMore());
 
     }
 
@@ -165,7 +180,6 @@ class HandCalculationTest {
         HandCalculation hc = new HandCalculation(cards);
 
         assertTrue(hc.checkHighCards());
-
 
     }
 
@@ -186,7 +200,7 @@ class HandCalculationTest {
 
 
         //No suit
-         cards = new ArrayList<String>();
+        cards = new ArrayList<String>();
         cards.add("7,D");
         cards.add("9,D");
         cards.add("7,D");
@@ -209,7 +223,6 @@ class HandCalculationTest {
         hc = new HandCalculation(cards);
 
         assertEquals(5, hc.checkSuit());
-
 
     }
 
