@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.*;
 
 class HandCalculationTest {
-    
+
     @Test
     void checkNoPairTest() {
 
@@ -141,6 +141,19 @@ class HandCalculationTest {
 
         assertEquals(22, hc.checkPairAndMore());
 
+        //Player has two pair with both pairs in community cards
+        cards = new ArrayList<String>();
+        cards.add("8,D");
+        cards.add("7,H");
+        cards.add("6,S");
+        cards.add("3,C");
+        cards.add("3,H");
+        cards.add("6,H");
+
+        hc = new HandCalculation(cards);
+
+        assertEquals(22, hc.checkPairAndMore());
+
     }
 
     @Test
@@ -187,7 +200,7 @@ class HandCalculationTest {
 
         assertEquals(4, hc.checkPairAndMore());
 
-        //Player has Four of a kind only in community cards
+        //Player has Four of a kind with all four in community cards
         cards = new ArrayList<String>();
         cards.add("8,D");
         cards.add("6,H");
