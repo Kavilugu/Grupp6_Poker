@@ -148,10 +148,13 @@
             <Image url="@images/backButton.png" />
          </image>
       </ImageView>
-      <ImageView  fx:id="ivSound" fitHeight="45.0" fitWidth="45.0"  onMouseReleased="#soundSetting" layoutX="1210.0" layoutY="25.0" >
+      <ImageView  fx:id="ivSound" fitHeight="45.0" fitWidth="45.0"  onMouseReleased="#soundSetting" layoutX="1210.0" layoutY="15.0" >
          <image>
             <Image url="@images/soundButton.png" />
          </image>
       </ImageView>
+      <Slider fx:id="volumeSlider" blockIncrement="0" layoutX="1066.0" layoutY="28.0"  majorTickUnit="5" max="10" minorTickCount="10"
+              showTickLabels="true" showTickMarks="true">
+      </Slider>
    </children>
 </Pane>

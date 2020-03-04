@@ -11,6 +11,8 @@ import deck.CardValue;
 import deck.Suit;
 import hand.Hand;
 import javafx.application.Platform;
+import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
@@ -19,6 +21,8 @@ import javafx.scene.control.TitledPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import javafx.fxml.Initializable;
+
 
 /**
  * @author Amin Harirchian, Vedrana Zeba, Lykke Levin, Rikard Almgren
@@ -188,6 +192,8 @@ public class GameController {
     public Label subPotSix;
     @FXML
     public Label mainPot;
+    @FXML
+    private Slider volumeSlider;
 
     private WinnerBox winnerBox;
     private ConfirmBox confirmBox;
@@ -276,8 +282,19 @@ public class GameController {
 
         // Used by method: inactivateAllAiCardGlows and aiAction.
         this.prevPlayerActive = -1;
+
+        volumeSlider.setValue(UIController.volume);
+        volumeSlider.valueProperty().addListener(new InvalidationListener() {
+            @Override
+            public void invalidated(Observable observable) {
+                UIController.setVolume(volumeSlider.getValue());
+            }
+        });
     }
 
+    public Slider getVolumeSlider() {
+        return volumeSlider;
+    }
 
     /**
      * Used to show labels and AI-frame.
@@ -426,6 +443,7 @@ public class GameController {
         lbPlayerAction.setText("check");
         playerMadeDecision = true;
         updatePlayerValues("Check");
+        sound.checkSound.setVolume(volumeSlider.getValue() / volumeSlider.getMax());
         sound.playSound("check");
 
     }
@@ -441,6 +459,7 @@ public class GameController {
         lbPlayerAction.setText("fold");
         playerMadeDecision = true;
         updatePlayerValues("Fold");
+        sound.cardFold.setVolume(volumeSlider.getValue() / volumeSlider.getMax());
         sound.playSound("fold");
     }
 
@@ -462,6 +481,7 @@ public class GameController {
         this.alreadyPaid += (spController.getCurrentMaxBet() - alreadyPaid);
         this.decision = "call," + Integer.toString(alreadyPaid);
         playerMadeDecision = true;
+        sound.chipSingle.setVolume(volumeSlider.getValue() / volumeSlider.getMax());
         sound.playSound("chipSingle");
         updatePlayerValues("Call, §" + Integer.toString(alreadyPaid));
 
@@ -493,6 +513,7 @@ public class GameController {
         // amount
 
         playerMadeDecision = true;
+        sound.chipMulti.setVolume(volumeSlider.getValue() / volumeSlider.getMax());
         sound.playSound("chipMulti");
 
         updatePlayerValues("Raise, §" + raisedBet);
@@ -634,8 +655,6 @@ public class GameController {
 
         }
     }
-
-
 
 
     /**
@@ -1546,6 +1565,7 @@ public class GameController {
             });
         } else if (winnerOfRound.equals(getUsername()) && (hand < 10)) {
             Platform.runLater(() -> {
+                sound.coinSound.setVolume(volumeSlider.getValue() / volumeSlider.getMax());
                 sound.playSound("coinSound");
                 winnerBox = new WinnerBox();
                 winnerBox.displayWinner("Rundans vinnare", winnerOfRound, 1, winnerHand);
@@ -1553,9 +1573,11 @@ public class GameController {
                 if (wantToRun) {
                     spController.stopHold();
                 }
+
             });
         } else if (winnerOfRound.equals(getUsername()) && (hand > 10)) {
             Platform.runLater(() -> {
+                sound.coinSound.setVolume(volumeSlider.getValue() / volumeSlider.getMax());
                 sound.playSound("coinSound");
                 winnerBox = new WinnerBox();
                 winnerBox.displayWinner("Rundans vinnare", winnerOfRound, 3, winnerHand);

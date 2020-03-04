@@ -60,6 +60,7 @@ public class ChangeScene {
    */
   public void switchScenetoSetting() throws IOException {
     Main.window.getScene().setRoot(rootNewGame);
+    settingsController.getVolumeSlider().setValue(UIController.volume);
   }
 
   /**
@@ -71,6 +72,8 @@ public class ChangeScene {
 
     Main.window.getScene().setRoot(root2);
     gameController.setUsername(settingsController.getName());
+    gameController.getVolumeSlider().setValue(UIController.volume);
+
 
   }
 

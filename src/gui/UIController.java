@@ -1,13 +1,21 @@
 package gui;
 
+import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.nio.file.Paths;
+import java.util.ResourceBundle;
 
+import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.media.MediaPlayer;
 
 /**
  * Controller for FXML-doc FirstMenu.fxml.
@@ -17,10 +25,11 @@ import javafx.scene.input.MouseEvent;
  *
  */
 
-public class UIController {
+public class UIController  {
 
 	private ChangeScene changeScene;
-	private Sound sound;
+	@FXML
+	private Slider volumeSlider;
 	@FXML
 	private TextField tfNameInput;
 	@FXML
@@ -28,10 +37,11 @@ public class UIController {
 	@FXML
 	private ImageView ivLoadGame;
 	@FXML
-	private  ImageView ivSound;
+	private ImageView ivSound;
+
 	private boolean muteSound;
-
-
+	private Sound sound;
+	public static double volume = 1;
 
 	//public UIController() {
 	//	Image image = new Image(Paths.get("resources/images/soundButton.png").toUri().toString());
@@ -41,16 +51,25 @@ public class UIController {
 
 	/**
 	 * Generated method for the FXML.
-	 * 
+	 *
 	 * @throws Exception
 	 */
 	public void initialize() throws Exception {
 
+		volumeSlider.setValue(UIController.volume);
+		volumeSlider.valueProperty().addListener(new InvalidationListener() {
+
+			@Override
+			public void invalidated(Observable observable) {
+				Sound.mp.setVolume(volumeSlider.getValue() / volumeSlider.getMax());
+				UIController.setVolume(volumeSlider.getValue());
+			}
+		});
 	}
 
 	/**
 	 * Sets the changeScene for this UIController
-	 * 
+	 *
 	 * @param sceneChanger an instance of the class ChangeScene
 	 */
 	public void setChangeScene(ChangeScene sceneChanger) {
@@ -59,7 +78,8 @@ public class UIController {
 	}
 
 	/**
-	 * Tells class changeScene to perform the swithScene-action. 
+	 * Tells class changeScene to perform the swithScene-action.
+	 *
 	 * @throws Exception
 	 */
 	public void NewGameClicked() throws Exception {
@@ -71,7 +91,7 @@ public class UIController {
 	/**
 	 * Should load a saved game file. This method is currently a non-functional
 	 * method that is not implemented for the final version.
-	 * 
+	 *
 	 * @throws IOException
 	 */
 	public void LoadGameClicked() throws IOException {
@@ -92,14 +112,23 @@ public class UIController {
 			sound.muteSound(true);
 			muteSound = true;
 
-		} else if (muteSound){
+		} else if (muteSound) {
 			Image image = new Image(Paths.get("resources/images/soundButton.png").toUri().toString());
 			ivSound.setImage(image);
 			sound.muteSound(false);
 			muteSound = false;
+		}
 	}
 
-
-
+	public static void setVolume(double volume) {
+		UIController.volume = volume;
 	}
+
+	public static double getVolume() {
+		return UIController.volume;
+	}
+
 }
+
+
+

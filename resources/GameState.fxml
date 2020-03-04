@@ -55,6 +55,7 @@
 				<Accordion layoutX="17.0" layoutY="432.0" />
 				<AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
 				<Slider fx:id="slider" blockIncrement="1.0" layoutX="693.0" layoutY="610.0" majorTickUnit="500.0" max="2000.0" min="50.0" minorTickCount="100" mouseTransparent="false" onDragDetected="#sliderChange" onDragDone="#sliderChange" onDragDropped="#sliderChange" onScrollFinished="#showAllIn" orientation="HORIZONTAL" pickOnBounds="false" prefWidth="214.0" showTickLabels="true" showTickMarks="true" snapToTicks="false" value="50.0">
+
 					<effect>
 						<Lighting diffuseConstant="1.5238095238095237" specularConstant="2.0" surfaceScale="0.0">
 							<bumpInput>
@@ -65,6 +66,9 @@
 							</light>
 						</Lighting>
 					</effect>
+				</Slider>
+				<Slider fx:id="volumeSlider" blockIncrement="0" layoutX="1135.0" layoutY="100.0"  majorTickUnit="5" max="10" minorTickCount="10"
+						showTickLabels="true" showTickMarks="true">
 				</Slider>
 				<Pane id="pane" fx:id="playerCardsArea" layoutX="570.0" layoutY="395.0" prefHeight="131.0" prefWidth="203.0" />
 				<MenuBar layoutX="0.0" layoutY="0.0" mouseTransparent="false" prefWidth="1280.0">
