@@ -590,43 +590,5 @@ class HandCalculationTest {
         assertEquals(4, hc.checkStraight());
     }
 
-    @Test
-    void getToHighlight() {
-    }
-
-    @Test
-    void calcPwrBarLvl() {
-    }
-
-    @Test
-    void pwrBarLvlOnTurnOne() {
-    }
-
-    @Test
-    void pwrBarLvlOnTurnTwo() {
-    }
-
-    @Test
-    void pwrBarLvlOnTurnThree() {
-    }
-
-    @Test
-    void pwrBarLvlOnTurnFour() {
-    }
-
-    @Test
-    void help() {
-    }
-
-    @Test
-    void advice() {
-    }
-
-    @Test
-    void toHiglight() {
-    }
-
-    @Test
-    void calcHandstrenght() {
-    }
+   
 }
