@@ -35,7 +35,6 @@ public class HandCalculation {
 	 * @param aiCards Current cards needed for evaluate.
 	 */
 	public HandCalculation(ArrayList<String> aiCards) {
-		
 		this.aiCards = aiCards;
 		getCardValues(aiCards);
 		toHighlight.clear();
@@ -43,7 +42,6 @@ public class HandCalculation {
 		colorChance = checkSuit();
 		pairsNmore = checkPairAndMore();
 		straightChance = checkStraight();
-		
 		Help();
 	}
 
@@ -180,13 +178,12 @@ public class HandCalculation {
 		
 		int total = (card1+card2);
 		
-		if(total>=17){
-			high=true;
+		if(total >= 17){
+			high = true;
 		}
-		if(card1>=10 && card2>=10){
+		if(card1 >= 10 && card2 >= 10){
 			 rlyhighCards=true;
-			}
-		
+		}
 		return high;
 	}
 	/**
