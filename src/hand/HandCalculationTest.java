@@ -590,5 +590,5 @@ class HandCalculationTest {
         assertEquals(4, hc.checkStraight());
     }
 
-   
+
 }
