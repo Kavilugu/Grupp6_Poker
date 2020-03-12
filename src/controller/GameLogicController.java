@@ -66,10 +66,10 @@ public class GameLogicController extends Thread {
         }
         currentMaxBet = bigBlind;
         this.smallBlind = bigBlind / 2;
-        gController.setPlayerPot((potSize / noOfPlayers));
+        gController.setPlayerPot((potSize));
         // create aiPlayers
         for (int i = 0; i < noOfAi; i++) {
-            aiPlayers.add(new Ai(potSize / (noOfPlayers), name.remove(0)));
+            aiPlayers.add(new Ai(potSize, name.remove(0)));
         }
         gController.setAiPlayers(aiPlayers, false, 69);
         potSplits = new int[noOfPlayers][1];

@@ -58,11 +58,15 @@ public class SettingsController {
     @FXML
     private ImageView ivQuestionTutorial;
     @FXML
+    private ImageView ivQuestionName;
+    @FXML
     private Label lblAiInfo;
     @FXML
     private Label lblPotInfo;
     @FXML
     private Label lblTutorialInfo;
+    @FXML
+    private Label lblNameInfo;
     @FXML
     private ImageView ivBack;
 
@@ -121,8 +125,8 @@ public class SettingsController {
 
             if (potValue > 100000) {
                 potValue = 100000;
-            } else if (potValue < 1000) {
-                potValue = 1000;
+            } else if (potValue < 100) {
+                potValue = 100;
             }
 
             return true;
@@ -152,7 +156,6 @@ public class SettingsController {
     public void aiSliderChange() {
         Double val = aiSlider.getValue();
         aiValue = val.intValue();
-
     }
 
     /**
@@ -288,6 +291,10 @@ public class SettingsController {
         ivQuestionPot.setOnMouseExited(e -> lblPotInfo.setVisible(false));
     }
 
+    public void ivQuestionNameHovered() {
+        lblNameInfo.setVisible(true);
+        ivQuestionName.setOnMouseExited(e -> lblNameInfo.setVisible(false));
+    }
     /**
      * Shows a label if question mark is hovered.
      */
@@ -343,4 +350,6 @@ public class SettingsController {
     public Slider getVolumeSlider() {
         return volumeSlider;
     }
+
+
 }
