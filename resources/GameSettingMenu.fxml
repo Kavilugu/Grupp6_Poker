@@ -120,7 +120,7 @@
             </ImageView>
             <ImageView fx:id="ivQuestionPot" fitHeight="40.0" fitWidth="40.0" onMouseClicked="#ivQuestionPotHovered" onMouseDragEntered="#ivQuestionPotHovered" onMouseEntered="#ivQuestionPotHovered" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../OneDrive/Skrivbord/Grupp6_Poker/resources/images/questionmark.png" />
+                  <Image url="@images/questionmark.png" />
                </image>
                <VBox.margin>
                   <Insets bottom="100.0"/>
