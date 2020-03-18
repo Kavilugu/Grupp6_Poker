@@ -1710,6 +1710,10 @@ public class GameController {
             if (!checkFlush.equals("Ingenting.")) {
                 result.append(" \n" + checkFlush);
             }
+            String checkStraight = checkForStraight();
+            if(!checkStraight.equals("Ingenting.")) {
+                result.append(" \n" + checkStraight);
+            }
             return result.toString();
         }
         if(round == 2){
@@ -1722,6 +1726,10 @@ public class GameController {
             if (!checkFlush.equals("Ingenting.")) {
                 result.append(" \n" + checkFlush);
             }
+            String checkStraight = checkForStraight();
+            if(!checkStraight.equals("Ingenting.")) {
+                result.append(" \n" + checkStraight);
+            }
             return result.toString();
         }
         if(round == 3){
@@ -1733,6 +1741,10 @@ public class GameController {
             String checkFlush = checkForFlush();
             if (!checkFlush.equals("Ingenting.")) {
                 result.append(" \n" + checkFlush);
+            }
+            String checkStraight = checkForStraight();
+            if(!checkStraight.equals("Ingenting.")) {
+                result.append(" \n" + checkStraight);
             }
             return result.toString();
         }

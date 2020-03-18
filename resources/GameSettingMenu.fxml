@@ -47,11 +47,11 @@
             </TextField>
             <Label fx:id="SliderTitle" prefWidth="500.0" text="Antal motståndare:" textFill="white">
                <font>
-                  <Font name="Arial Bold Italic" size="30.0" />
+                  <Font name="Arial Bold Italic" size="24.0" />
                </font>
             </Label>
              <Slider fx:id="aiSlider" blockIncrement="0.0" majorTickUnit="2.0" max="5.0" min="1.0" minorTickCount="0" onDragDone="#aiSliderChange" onDragDropped="#aiSliderChange" onDragOver="#aiSliderChange" onMouseReleased="#aiSliderChange" prefHeight="16.0" prefWidth="415.0" showTickLabels="true" snapToTicks="true" value="5.0"
-            scaleY="1.5">
+            scaleY="1.5" >
                  <VBox.margin>
                      <Insets bottom="15.0" top="15.0" />
                  </VBox.margin>
@@ -60,9 +60,9 @@
                  </cursor>
              </Slider>
             <HBox prefHeight="0.0" prefWidth="440.0">
-               <Label fx:id="TutorialTitle" prefWidth="200.0" text="Tutorial:" textFill="white">
+               <Label fx:id="TutorialTitle" prefWidth="200.0" text="Tutorial:" textFill="white" >
                   <font>
-                     <Font name="Arial Bold Italic" size="30.0" />
+                     <Font name="Arial Bold Italic" size="24.0" />
                   </font>
                </Label>
                <children>

@@ -532,7 +532,7 @@ public class HandCalculation {
 	public String Help(){
 		
 		String helper= "Ingenting, tyvärr...";
-		String advice = "Denna hand kanske inte är den bästa att spela på...";
+		String advice = "Denna hand kanske inte är den bästa att spela på...Fold";
 		
 		String[] splitter = yourCard.split(",");
 		int intCardNbr = Integer.parseInt(splitter[0]);
