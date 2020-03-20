@@ -63,6 +63,7 @@ public class Sound {
 	public static void muteSound(boolean b){
 		if(b) {
 			mp.setMute(true);
+
 		}else {
 			mp.setMute(false);
 		}

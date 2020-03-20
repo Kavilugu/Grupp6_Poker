@@ -49,6 +49,7 @@ public class TestHand {
 		Card card4 = getSpecifiedCard(cIndex4);
 		Card card5 = getSpecifiedCard(cIndex5);
 
+
 		ArrayList<Card> fiveCards = new ArrayList<>();
 		fiveCards.add(card1);
 		fiveCards.add(card2);
@@ -99,5 +100,6 @@ public class TestHand {
 
 		// To test the test case: TF22
 		run.testFiveCard(0, 1, 2, 3, 4);
+
 	}
 }

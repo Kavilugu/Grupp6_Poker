@@ -20,6 +20,7 @@ import javafx.scene.control.Slider;
 import javafx.scene.control.TitledPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.fxml.Initializable;
 
@@ -230,6 +231,8 @@ public class GameController {
     private boolean wantToRun;
     private Card[] flopTurnRiverCards;
     private int round = 0;
+
+    private boolean isMuted;
 
     public GameController() {
         sound.playBackgroundMusic();
@@ -1889,4 +1892,5 @@ public class GameController {
 
         return result;
     }
+
 }

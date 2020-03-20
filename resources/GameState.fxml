@@ -21,16 +21,10 @@
 						<Image url="@images/table.png" />
 					</image>
 				</ImageView>
-				<ImageView id="rulesButton.png" fitHeight="45.0" fitWidth="45.0" layoutX="1150.0" layoutY="40.0" onMouseReleased="#rulesState">
+				<ImageView id="rulesButton.png" fitHeight="45.0" fitWidth="45.0" layoutX="1210.0" layoutY="40.0" onMouseReleased="#rulesState">
 					<image>
 						<Image url="@images/rulesButton.png" />
 					</image>
-				</ImageView>
-				<ImageView id="soundButton.png" fx:id="ivSound" fitHeight="45.0" fitWidth="45.0" layoutX="1220.0" layoutY="40.0" onMouseReleased="#soundSetting">
-					<image>
-						<Image url="@images/soundButton.png" />
-					</image>
-
 				</ImageView>
 				<ImageView id="saveButton.png" disable="true" fitHeight="45.0" fitWidth="45.0" layoutX="1230.0" layoutY="100.0" onMouseReleased="#saveGame" visible="false">
 					<image>

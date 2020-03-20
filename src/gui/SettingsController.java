@@ -174,7 +174,7 @@ public class SettingsController {
     /**
      * If ComboBox is selected by the user, disable the button true.
      */
-    public void cbOffClicked() {
+    public void cbOffClicked(){
 
         if (cbOn.isSelected()) {
             cbOn.setSelected(false);
@@ -267,6 +267,7 @@ public class SettingsController {
 
             spController.startGame(aiValue, potValue, name);
             sound.mp.stop();
+            sound.shuffleSound.setVolume(volumeSlider.getValue() / volumeSlider.getMax());
             sound.playSound("shuffle");
 
         });
@@ -317,7 +318,6 @@ public class SettingsController {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        // Main.window.setScene(changeScene.sceneMenu);
     }
 
     /**
@@ -334,7 +334,6 @@ public class SettingsController {
             Image image = new Image(Paths.get("resources/images/soundButtonOff.png").toUri().toString());
             ivSound.setImage(image);
             sound.muteSound(true);
-
             isMuted = true;
 
         } else if (isMuted) {
